@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AquatoxBasedOptimization.ExternalProgramOperating;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,17 +12,13 @@ namespace AquatoxBasedOptimization
     {
         static void Main(string[] args)
         {
-            ProcessStartInfo info = new ProcessStartInfo();
-
-            info.FileName = "\"C:/Users/ivanry/AQUATOX R3.2/PROGRAM/aquatox.exe\"";
-            info.Arguments = "EPSAVE \"C:/Users/ivanry/AQUATOX R3.2/STUDIES/Lake Pyhajarvi Finland.aps\" \"test.txt\"";
+            SimpleSingleLauncher simpleSingleLauncher = new SimpleSingleLauncher();
+            simpleSingleLauncher.File = new System.IO.FileInfo(@"C:/Users/ivanry/AQUATOX R3.2/PROGRAM/aquatox.exe");
+            simpleSingleLauncher.SetParameters("ECSAVE \"C:/Users/ivanry/AQUATOX R3.2/STUDIES/Lake Pyhajarvi Finland.txt\" \"test1.txt\"");
 
             Console.WriteLine("Starting...");
 
-            using (Process process = Process.Start(info))
-            {
-                process.WaitForExit();
-            }
+            simpleSingleLauncher.Run();
 
             Console.WriteLine("End!");
             Console.Read();
