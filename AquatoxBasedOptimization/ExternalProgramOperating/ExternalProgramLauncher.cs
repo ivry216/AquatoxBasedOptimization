@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace AquatoxBasedOptimization.ExternalProgramOperating
 {
     public abstract class ExternalProgramLauncher<TStrategy> : IExternalProgramLauncher
-        where TStrategy : IOperatingStrategy
+        where TStrategy : IOperatingStrategyParametrized
     {
         protected FileInfo fileInfo;
-        protected IOperatingStrategy operatingStrategy;
+        protected IOperatingStrategyParametrized operatingStrategy;
 
         public ExternalProgramLauncher()
         {

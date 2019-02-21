@@ -47,6 +47,7 @@
     <Compile Include="ExternalProgramOperating\IExternalProgramLauncher.cs" />
     <Compile Include="ExternalProgramOperating\OperatingStrategies\ExecutiveLauncher.cs" />
     <Compile Include="ExternalProgramOperating\OperatingStrategies\IOperatingStrategy.cs" />
+    <Compile Include="ExternalProgramOperating\OperatingStrategies\IOperatingStrategyParametrized.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
