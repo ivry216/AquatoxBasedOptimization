@@ -15,6 +15,12 @@ namespace AquatoxBasedOptimization.ExternalProgramOperating
         protected TStrategy operatingStrategy;
         protected string parameters;
 
+        public FileInfo File
+        {
+            get => fileInfo;
+            set => fileInfo = new FileInfo(value.FullName);
+        }
+
         public ExternalProgramLauncher()
         {
             operatingStrategy = new TStrategy();
