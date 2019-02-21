@@ -9,21 +9,22 @@ using System.Threading.Tasks;
 namespace AquatoxBasedOptimization.ExternalProgramOperating
 {
     public abstract class ExternalProgramLauncher<TStrategy> : IExternalProgramLauncher
-        where TStrategy : IOperatingStrategyParametrized
+        where TStrategy : IOperatingStrategyParametrized, new()
     {
         protected FileInfo fileInfo;
-        protected IOperatingStrategyParametrized operatingStrategy;
+        protected TStrategy operatingStrategy;
 
         public ExternalProgramLauncher()
         {
+            operatingStrategy = new TStrategy();
         }
 
-        public ExternalProgramLauncher(string executiveFilePath)
+        public ExternalProgramLauncher(string executiveFilePath) : this()
         {
             fileInfo = new FileInfo(executiveFilePath);
         }
 
-        public ExternalProgramLauncher(FileInfo fileInfo)
+        public ExternalProgramLauncher(FileInfo fileInfo) : this()
         {
             this.fileInfo = new FileInfo(fileInfo.FullName);
         }
