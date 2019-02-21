@@ -24,8 +24,6 @@ namespace AquatoxBasedOptimization.ExternalProgramOperating.OperatingStrategies
             _processInfo.FileName = _executionFile.FullName;
             _processInfo.Arguments = _executionParameters;
 
-            Console.WriteLine("Starting...");
-
             using (Process process = Process.Start(_processInfo))
             {
                 process.WaitForExit();
