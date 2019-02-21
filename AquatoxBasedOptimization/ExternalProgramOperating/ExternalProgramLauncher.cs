@@ -13,6 +13,7 @@ namespace AquatoxBasedOptimization.ExternalProgramOperating
     {
         protected FileInfo fileInfo;
         protected TStrategy operatingStrategy;
+        protected string parameters;
 
         public ExternalProgramLauncher()
         {
@@ -29,7 +30,11 @@ namespace AquatoxBasedOptimization.ExternalProgramOperating
             this.fileInfo = new FileInfo(fileInfo.FullName);
         }
 
+        public void SetParameters(string parameters)
+        {
+            this.parameters = parameters;
+        }
+
         public abstract void Run();
-        public abstract void Run(string parameters);
     }
 }

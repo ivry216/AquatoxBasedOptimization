@@ -8,7 +8,7 @@ namespace AquatoxBasedOptimization.ExternalProgramOperating
 {
     public interface IExternalProgramLauncher
     {
+        void SetParameters(string parameters);
         void Run();
-        void Run(string parameters);
     }
 }
