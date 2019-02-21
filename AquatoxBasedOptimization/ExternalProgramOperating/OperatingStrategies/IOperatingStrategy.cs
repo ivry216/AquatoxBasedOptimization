@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AquatoxBasedOptimization.ExternalProgramOperating.OperatingStrategies
 {
-    public interface IOperatingStrategyParametrized
+    public interface IOperatingStrategy
     {
         void SetExecutiveFile(FileInfo fileInfo);
         void Execute();

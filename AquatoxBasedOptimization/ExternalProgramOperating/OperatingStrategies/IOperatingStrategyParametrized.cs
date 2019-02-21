@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AquatoxBasedOptimization.ExternalProgramOperating.OperatingStrategies
 {
-    public interface IOperatingStrategyParametrized : IOperatingStrategyParametrized
+    public interface IOperatingStrategyParametrized : IOperatingStrategy
     {
         void SetExecutionParameters(string parameters);
     }
