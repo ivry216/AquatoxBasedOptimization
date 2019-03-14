@@ -47,6 +47,8 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input
                     textWriter.WriteLine(_inputFileLines[i]);
                 }
             }
+            // Close the stream
+            textWriter.Flush();
         }
 
         private void InitializeDictionaries(List<string> parameters)
