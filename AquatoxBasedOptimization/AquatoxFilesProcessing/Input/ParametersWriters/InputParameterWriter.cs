@@ -12,8 +12,6 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input.ParametersWriter
         private string _leftImmutablePart;
         private string _rightImmutablePart;
 
-        private StringBuilder stringBuilder;
-
         public string ParameterName { get; }
         public ParameterLocationType ParameterLocationType { get; private set; }
 
@@ -26,6 +24,8 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input.ParametersWriter
 
         public string Write(string parameterValue)
         {
+            // Set the initial value for the string builder
+            StringBuilder stringBuilder = new StringBuilder(_leftImmutablePart);
             stringBuilder.Append(parameterValue);
             stringBuilder.Append(_rightImmutablePart);
 
@@ -57,9 +57,6 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input.ParametersWriter
 
                 ParameterLocationType = ParameterLocationType.Center;
             }
-
-            // Set the initial value for the string builder
-            stringBuilder = new StringBuilder(_leftImmutablePart);
         }
     }
 }
