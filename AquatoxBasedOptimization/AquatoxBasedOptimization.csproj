@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,6 +53,8 @@
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\IInputParameterWriter.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\InputParameterWriter.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\ParameterLocationType.cs" />
+    <Compile Include="AquatoxFilesProcessing\Output\Converter\DayObservationsGetter.cs" />
+    <Compile Include="AquatoxFilesProcessing\Output\Converter\IDayObservationsGetter.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\IAquatoxOutputFileProcessor.cs" />
     <Compile Include="Data\ITimeSeries.cs" />
     <Compile Include="Data\TimeSeries.cs" />
@@ -68,8 +72,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AquatoxFilesProcessing\Output\Converter\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
