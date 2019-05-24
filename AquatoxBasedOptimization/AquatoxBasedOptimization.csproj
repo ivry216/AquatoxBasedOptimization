@@ -51,6 +51,10 @@
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\IInputParameterWriter.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\InputParameterWriter.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\ParameterLocationType.cs" />
+    <Compile Include="AquatoxFilesProcessing\Output\IAquatoxOutputFileProcessor.cs" />
+    <Compile Include="Data\ITimeSeries.cs" />
+    <Compile Include="Data\TimeSeries.cs" />
+    <Compile Include="Extensions\Array\ArrayExtensions.cs" />
     <Compile Include="ExternalProgramOperating\ExternalProgramLauncher.cs" />
     <Compile Include="ExternalProgramOperating\IExternalProgramLauncher.cs" />
     <Compile Include="ExternalProgramOperating\OperatingStrategies\ExecutiveLauncher.cs" />
@@ -64,6 +68,8 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AquatoxFilesProcessing\Output\Converter\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
