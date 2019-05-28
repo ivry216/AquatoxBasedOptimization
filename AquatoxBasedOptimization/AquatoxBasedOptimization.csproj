@@ -56,6 +56,7 @@
     <Compile Include="AquatoxFilesProcessing\Output\Converter\DayObservationsGetter.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\Converter\IDayObservationsGetter.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\Converter\ILineInformationExtractor.cs" />
+    <Compile Include="AquatoxFilesProcessing\Output\Converter\ITimeSeriesBuilder.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\Converter\LineInformationExtractor.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\IAquatoxOutputFileProcessor.cs" />
     <Compile Include="Data\ITimeSeries.cs" />
