@@ -9,6 +9,9 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output.Converter
 {
     public interface ITimeSeriesBuilder
     {
-        ITimeSeries Build(List<(DateTime Date, Dictionary<string, double> Variables)> parsedData);
+        Dictionary<string, int> VariableIndexPair { get; }
+
+        // TODO: use collection instead?
+        Dictionary<string, ITimeSeries> Build(List<(DateTime Date, Dictionary<string, double> Variables)> parsedData);
     }
 }
