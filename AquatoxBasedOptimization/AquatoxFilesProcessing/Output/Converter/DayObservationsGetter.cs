@@ -13,7 +13,7 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output.Converter
 
         #region Getter
 
-        public List<string> GetLinesOfData(List<string> allLines)
+        public List<string> GetLinesOfData(string[] allLines)
         {
             // Look for indices of lines, which contain labels
             var linesContainingLabel = allLines

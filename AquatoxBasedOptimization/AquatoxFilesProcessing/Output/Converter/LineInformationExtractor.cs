@@ -11,10 +11,15 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output.Converter
         // 
         private const int _numberOfDescriptions = 2;
 
-        public Dictionary<string, int> VariablesAndIndices {get;set;}
+        public Dictionary<string, int> VariablesAndIndices { get; private set; }
+
+        public LineInformationExtractor(Dictionary<string, int> variablesAndIndices)
+        {
+            VariablesAndIndices = variablesAndIndices;
+        }
 
         // TODO: get rid of dictionaries?
-        public (DateTime Date, Dictionary<string, double>) ExtractData(string line)
+        public (DateTime Date, Dictionary<string, double> Variables) ExtractData(string line)
         {
             // Preprocess the sting to get only the values
             var processedLine = line

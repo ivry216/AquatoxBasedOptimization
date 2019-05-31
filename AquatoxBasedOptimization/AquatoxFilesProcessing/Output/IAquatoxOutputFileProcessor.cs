@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AquatoxBasedOptimization.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output
 {
     public interface IAquatoxOutputFileProcessor
     {
-
+        Dictionary<string, int> OutputVariables { get; }
+        Dictionary<string, ITimeSeries> SetParametersBySubstitution(string pathToRead);
     }
 }

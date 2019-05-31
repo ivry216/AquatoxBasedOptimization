@@ -8,6 +8,6 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output.Converter
 {
     public interface IDayObservationsGetter
     {
-        List<string> GetLinesOfData(List<string> allLines);
+        List<string> GetLinesOfData(string[] allLines);
     }
 }

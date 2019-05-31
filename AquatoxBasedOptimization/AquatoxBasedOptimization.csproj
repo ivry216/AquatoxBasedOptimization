@@ -53,6 +53,7 @@
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\IInputParameterWriter.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\InputParameterWriter.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\ParameterLocationType.cs" />
+    <Compile Include="AquatoxFilesProcessing\Output\AquatoxOutputFileProcessor.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\Converter\DayObservationsGetter.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\Converter\IDayObservationsGetter.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\Converter\ILineInformationExtractor.cs" />
