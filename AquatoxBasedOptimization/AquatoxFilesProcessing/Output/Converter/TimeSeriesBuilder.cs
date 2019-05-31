@@ -26,6 +26,7 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output.Converter
 
             // Make a dict
             Dictionary<string, ITimeSeries> result = new Dictionary<string, ITimeSeries>();
+
             // Values
             DateTime[] dateTimes = new DateTime[size];
             double[][] values = new double[VariableIndexPair.Count][];
@@ -44,7 +45,13 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output.Converter
                 }
             }
 
-            throw new NotImplementedException();
+            // Make time series
+            for (int i = 0; i < Names.Length; i++)
+            {
+                result.Add(Names[i], new TimeSeries(Names[i], values[i], dateTimes));
+            }
+
+            return result;
         }
     }
 }
