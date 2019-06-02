@@ -41,7 +41,7 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output.Converter
                 dateTimes[i] = parsedData[i].Date;
                 for (int j = 0; j < Indices.Length; j++)
                 {
-                    values[i][j] = parsedData[i].Variables[Names[j]];
+                    values[j][i] = parsedData[i].Variables[Names[j]];
                 }
             }
 
