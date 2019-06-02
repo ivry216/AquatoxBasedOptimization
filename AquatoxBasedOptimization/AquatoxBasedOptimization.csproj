@@ -35,8 +35,15 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus, Version=4.5.3.1, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.1\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -63,6 +70,7 @@
     <Compile Include="AquatoxFilesProcessing\Output\IAquatoxOutputFileProcessor.cs" />
     <Compile Include="Data\ITimeSeries.cs" />
     <Compile Include="Data\OutputVariables\IOutputVariablesReader.cs" />
+    <Compile Include="Data\OutputVariables\OutputVariablesReaderFromExcel.cs" />
     <Compile Include="Data\TimeSeries.cs" />
     <Compile Include="Extensions\Array\ArrayExtensions.cs" />
     <Compile Include="ExternalProgramOperating\ExternalProgramLauncher.cs" />
