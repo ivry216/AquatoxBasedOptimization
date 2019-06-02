@@ -23,7 +23,7 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output.Converter
         {
             // Preprocess the sting to get only the values
             var processedLine = line
-                .Replace("}", "")
+                .Replace("{", "")
                 .Replace("}", "")
                 .Replace("Results at ", " ")
                 .Replace("n=", "")
