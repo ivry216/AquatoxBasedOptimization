@@ -62,6 +62,7 @@
     <Compile Include="AquatoxFilesProcessing\Output\Converter\TimeSeriesBuilder.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\IAquatoxOutputFileProcessor.cs" />
     <Compile Include="Data\ITimeSeries.cs" />
+    <Compile Include="Data\OutputVariables\IOutputVariablesReader.cs" />
     <Compile Include="Data\TimeSeries.cs" />
     <Compile Include="Extensions\Array\ArrayExtensions.cs" />
     <Compile Include="ExternalProgramOperating\ExternalProgramLauncher.cs" />
@@ -80,8 +81,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\OutputVariables\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
