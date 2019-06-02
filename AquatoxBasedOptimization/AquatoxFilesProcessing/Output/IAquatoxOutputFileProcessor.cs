@@ -10,6 +10,6 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output
     public interface IAquatoxOutputFileProcessor
     {
         Dictionary<string, int> OutputVariables { get; }
-        Dictionary<string, ITimeSeries> SetParametersBySubstitution(string pathToRead);
+        Dictionary<string, ITimeSeries> ReadOutputs(string pathToRead);
     }
 }

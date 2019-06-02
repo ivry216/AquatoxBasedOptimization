@@ -40,7 +40,7 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output
 
         #region Main Methods
 
-        public Dictionary<string, ITimeSeries> SetParametersBySubstitution(string pathToRead)
+        public Dictionary<string, ITimeSeries> ReadOutputs(string pathToRead)
         {
             var fileStream = File.OpenRead(pathToRead);
             TextReader textReader = new StreamReader(fileStream);
