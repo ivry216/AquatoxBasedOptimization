@@ -27,7 +27,7 @@ namespace AquatoxBasedOptimization.Data.OutputVariables
                 //
                 for (int row = 2; row <= nRows; row++)
                 {
-                    variablesIndices.Add((string)worksheet.Cells[row, 1].Value, (int)worksheet.Cells[row, 2].Value);
+                    variablesIndices.Add(worksheet.Cells[row, 1].Value.ToString(), int.Parse(worksheet.Cells[row, 2].Value.ToString()));
                 }
             }
 
