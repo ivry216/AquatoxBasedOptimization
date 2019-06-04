@@ -50,6 +50,14 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output
 
             // Getting the data for each day observations
             List<string> linesForDays = _dayObservationGetter.GetLinesOfData(lines);
+
+            // TODO: Getting only the surface
+            List<string> surfaceLinesForDays = linesForDays
+                .Select((line, index) => (line, index))
+                .Where(pair => pair.index < linesForDays.Count)
+                .Select(pair => pair.line)
+                .ToList();
+
             // Get the data for each day
             List<(DateTime Date, Dictionary<string, double> Variables)> dataForEachDay = new List<(DateTime Date, Dictionary<string, double> Variables)>();
             foreach (var lineForDay in linesForDays)
