@@ -51,9 +51,9 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                 // Get time, depth and oxygen columns indices
                 int timeIndex = 0, depthIndex = 0, oxygenIndex = 0;
                 string trialString;
-                for (int i = 1; i <= nCols; i++)
+                for (int i = 1, j = 0; i <= nCols; i++, j++)
                 {
-                    trialString = worksheet.Cells[1, 1, 1, nCols].ToString();
+                    trialString = worksheet.Cells[1, i].Value.ToString();
                     if (trialString.Contains(_timeFileColname))
                     {
                         timeIndex = i;
@@ -71,36 +71,38 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                 // Get all depths
                 DataTable dataTable = new DataTable();
                 dataTable.Columns.Add(_timeDtColname, typeof(DateTime));
-                dataTable.Columns.Add(_depthDtColname, typeof(double));
-                dataTable.Columns.Add(_oxygenDtColname, typeof(double));
+                dataTable.Columns.Add(_depthDtColname, typeof(string));
+                dataTable.Columns.Add(_oxygenDtColname, typeof(string));
 
                 for (int i = 2; i < nRows; i++)
                 {
                     var newRow = dataTable.NewRow();
-                    newRow[_timeDtColname] = DateTime.Parse(worksheet.Cells[i, timeIndex].Value.ToString());
-                    newRow[_depthDtColname] = double.Parse(worksheet.Cells[i, depthIndex].Value.ToString());
-                    newRow[_oxygenDtColname] = double.Parse(worksheet.Cells[i, oxygenIndex].Value.ToString());
+                    newRow[_timeDtColname] = DateTime.FromOADate(double.Parse(worksheet.Cells[i, timeIndex].Value.ToString()));
+                    newRow[_depthDtColname] = worksheet.Cells[i, depthIndex].Value.ToString();
+                    newRow[_oxygenDtColname] = worksheet.Cells[i, oxygenIndex].Value == null ? 
+                        "" : worksheet.Cells[i, oxygenIndex].Value.ToString();
                     dataTable.Rows.Add(newRow);
                 }
 
                 // Get distinct depths
-                List<double> distinctDepths = dataTable
+                List<string> distinctDepths = dataTable
                     .AsEnumerable()
-                    .Select(row => row.Field<double>(_depthDtColname))
+                    .Select(row => row.Field<string>(_depthDtColname))
                     .Distinct()
                     .ToList();
 
                 // Dictionary with observations for each particular depth
-                Dictionary<double, ITimeSeries> depthRelatedTimeseries = new Dictionary<double, ITimeSeries>();
+                Dictionary<string, ITimeSeries> depthRelatedTimeseries = new Dictionary<string, ITimeSeries>();
                 // Make an output for each depth
                 foreach (var depth in distinctDepths)
                 {
                     // Get the data for ts
                     List<(DateTime Timestamp, double Value)> timeseriesData = dataTable
                         .AsEnumerable()
-                        .Select(row => (Depth: row.Field<double>(_depthDtColname), Timestamp: row.Field<DateTime>(_timeDtColname), Value: row.Field<double>(_oxygenDtColname)))
-                        .Where(triple => triple.Depth == depth)
-                        .Select(triple => (triple.Timestamp, triple.Value))
+                        .Select(row => (Depth: row.Field<string>(_depthDtColname), Timestamp: row.Field<DateTime>(_timeDtColname), Value: row.Field<string>(_oxygenDtColname)))
+                        .Where(triple => triple.Depth.Equals(depth))
+                        .Where(triple => !triple.Value.Equals(""))
+                        .Select(triple => (triple.Timestamp, double.Parse(triple.Value)))
                         .ToList();
 
                     // Perform ts

@@ -10,9 +10,9 @@ namespace AquatoxBasedOptimization.Data
     {
         public string Name { get; private set; }
 
-        public Dictionary<double, ITimeSeries> DepthRelatedObservations { get; private set; }
+        public Dictionary<string, ITimeSeries> DepthRelatedObservations { get; private set; }
 
-        public OutputObservation(string name, Dictionary<double, ITimeSeries> depthRelatedObservations)
+        public OutputObservation(string name, Dictionary<string, ITimeSeries> depthRelatedObservations)
         {
             Name = name;
             DepthRelatedObservations = depthRelatedObservations;

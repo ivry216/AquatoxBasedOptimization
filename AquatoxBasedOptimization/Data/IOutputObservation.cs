@@ -9,6 +9,6 @@ namespace AquatoxBasedOptimization.Data
     public interface IOutputObservation
     {
         string Name { get; }
-        Dictionary<double, ITimeSeries> DepthRelatedObservations { get; }
+        Dictionary<string, ITimeSeries> DepthRelatedObservations { get; }
     }
 }
