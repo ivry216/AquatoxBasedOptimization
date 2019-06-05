@@ -18,20 +18,45 @@ namespace AquatoxBasedOptimization.Metrics.PredefinedComparing
 
             // Run distance calculating
             double distance = 0;
-            int observationIndex = 0;
-            for (int i = 0; i < outputDates.Length; i++)
-            {
-                while(!observationDates[observationIndex].Equals(outputDates[i]))
-                {
-                    observationIndex++;
 
-                    if (observationIndex >= observationDates.Length)
+            // Date
+            DateTime[] startingEarlier;
+            DateTime[] startingLater;
+            // Values
+            double[] startingEarlierValues;
+            double[] startingLaterValues;
+
+            // Get the time series that is starting earlier
+            if (outputDates.Min() <= observationDates.Min())
+            {
+                startingEarlier = outputDates;
+                startingLater = observationDates;
+                startingEarlierValues = output.Values;
+                startingLaterValues = observations.Values;
+            }
+            else
+            {
+                startingLater = outputDates;
+                startingEarlier = observationDates;
+                startingEarlierValues = observations.Values;
+                startingLaterValues = output.Values;
+            }
+
+
+            int secondDateArrayIndex = 0;
+            for (int i = 0; i < startingLater.Length; i++)
+            {
+                while(!startingEarlier[secondDateArrayIndex].Equals(startingLater[i]))
+                {
+                    secondDateArrayIndex++;
+
+                    if (secondDateArrayIndex >= startingEarlier.Length)
                     {
                         return distance;
                     }
                 }
 
-                distance += Math.Abs(output.Values[i] - observations.Values[observationIndex]);
+                distance += Math.Abs(startingLaterValues[i] - startingEarlierValues[secondDateArrayIndex]);
             }
 
             return distance;
