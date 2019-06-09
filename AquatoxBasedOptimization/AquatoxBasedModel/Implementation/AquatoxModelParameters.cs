@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using AquatoxBasedOptimization.AquatoxFilesProcessing.Output;
+using System.Collections.Generic;
+using System.IO;
 
 namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 {
@@ -10,14 +12,21 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 
         public string NumericRepresentationFormat { get; } = "0.00000000000000E+0000";
 
-        public string PerformOutputFileName(int filenameId)
+        public Dictionary<string, string> InputParameters { get; set; }
+
+        public string BuildInputFileName(int id)
         {
-            return "ModelOutput_" + filenameId + ".txt";
+            return CurrentDirectory + "Input" + id + ".txt";
         }
 
-        public string BuildAquatoxRunningCommand(string inputFileName, string outputFileName)
+        public string PerformOutputFileName(int id)
         {
-            return "EPSAVE " + inputFileName + " \"" + outputFileName + "\"";
+            return "Output_" + id + ".txt";
+        }
+
+        public string BuildAquatoxRunningCommand(int id)
+        {
+            return "EPSAVE " + BuildInputFileName(id) + " \"" + PerformOutputFileName(id) + "\"";
         }
     }
 }

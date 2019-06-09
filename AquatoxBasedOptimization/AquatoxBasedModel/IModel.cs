@@ -6,7 +6,7 @@
         where TOutput : IModelOutput
     {
         void SetParameters(TParameters modelParameters);
-        void SetInput(TInput modelInput);
-        TOutput Evaluate();
+        void SetInput(TInput modelInput, int id);
+        TOutput Evaluate(int id);
     }
 }
