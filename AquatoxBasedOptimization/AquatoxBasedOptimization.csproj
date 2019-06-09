@@ -55,6 +55,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AquatoxBasedModel\Implementation\AquatoxModel.cs" />
+    <Compile Include="AquatoxBasedModel\IModel.cs" />
+    <Compile Include="AquatoxBasedModel\IModelInput.cs" />
+    <Compile Include="AquatoxBasedModel\IModelOutput.cs" />
+    <Compile Include="AquatoxBasedModel\IModelParameters.cs" />
+    <Compile Include="AquatoxBasedModel\Implementation\AquatoxModelInput.cs" />
+    <Compile Include="AquatoxBasedModel\Implementation\AquatoxModelOutput.cs" />
+    <Compile Include="AquatoxBasedModel\Implementation\AquatoxModelParameters.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\AquatoxInputFileProcessor.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\IAquatoxInputFileProcessor.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\IInputParameterWriter.cs" />
