@@ -14,7 +14,6 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
     {
         private AquatoxOutputFileProcessor _outputFileProcessor;
         private AquatoxInputFileProcessor _inputFileProcessor;
-        private SimpleSingleLauncher _simpleSingleLauncher;
 
         public AquatoxModelParameters Parameters { get; private set; }
 
@@ -33,17 +32,16 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
             Parameters = modelParameters;
             // TODO: Move initialization somewhere else?
             _inputFileProcessor = new AquatoxInputFileProcessor(Parameters.InputFilePath, Parameters.InputParameters.Values.ToList());
-            // TODO: same?
-            _simpleSingleLauncher = new SimpleSingleLauncher();
-            _simpleSingleLauncher.File = new FileInfo(Parameters.AquatoxExecutablePath);
         }
 
         public AquatoxModelOutput Evaluate(int id)
         {
+            // TODO: that was added to make the evaluation being correctly working in parallel
+            SimpleSingleLauncher _simpleSingleLauncher = new SimpleSingleLauncher(Parameters.AquatoxExecutablePath);
             _simpleSingleLauncher.SetParameters(Parameters.BuildAquatoxRunningCommand(id));
             _simpleSingleLauncher.Run();
 
-            return new AquatoxModelOutput(_outputFileProcessor.ReadOutputs(Parameters.PerformOutputFileName(id)));
+            return new AquatoxModelOutput(_outputFileProcessor.ReadOutputs(Parameters.BuildOutputFileName(id)));
         }
     }
 }

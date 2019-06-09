@@ -16,17 +16,17 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 
         public string BuildInputFileName(int id)
         {
-            return CurrentDirectory + "Input" + id + ".txt";
+            return CurrentDirectory + "\\Input" + id + ".txt";
         }
 
-        public string PerformOutputFileName(int id)
+        public string BuildOutputFileName(int id)
         {
             return "Output_" + id + ".txt";
         }
 
         public string BuildAquatoxRunningCommand(int id)
         {
-            return "EPSAVE " + BuildInputFileName(id) + " \"" + PerformOutputFileName(id) + "\"";
+            return "EPSAVE " + BuildInputFileName(id) + " \"" + BuildOutputFileName(id) + "\"";
         }
     }
 }
