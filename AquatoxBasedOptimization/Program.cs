@@ -1,6 +1,11 @@
 ﻿using AquatoxBasedOptimization.AquatoxFilesProcessing.Input;
 using AquatoxBasedOptimization.AquatoxFilesProcessing.Input.ParametersWriters;
+using AquatoxBasedOptimization.AquatoxFilesProcessing.Output;
+using AquatoxBasedOptimization.Data;
+using AquatoxBasedOptimization.Data.OutputObservations;
+using AquatoxBasedOptimization.Data.OutputVariables;
 using AquatoxBasedOptimization.ExternalProgramOperating;
+using AquatoxBasedOptimization.Metrics.PredefinedComparing;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -20,6 +25,16 @@ namespace AquatoxBasedOptimization
             //simpleSingleLauncher.File = new FileInfo(@"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/PROGRAM/aquatox.exe");
             //simpleSingleLauncher.SetParameters("EPSAVE \"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/STUDIES/Lake Pyhajarvi Finland.txt\" \"test.txt\"");
 
+            Console.WriteLine("Reading output variables.");
+
+            // Read variable names and indices in output file
+            IOutputVariablesReader outputVariablesReader = new OutputVariablesReaderFromExcel();
+            Dictionary<string, int> variablesAndIndices = outputVariablesReader.Read();
+
+            // Read the observations file
+            OutputObservationsReaderFromExcel outputObservationsReader = new OutputObservationsReaderFromExcel();
+            var observations = outputObservationsReader.ReadOutputVariableObservations();
+
             Console.WriteLine("Starting...");
 
             //simpleSingleLauncher.Run();
@@ -28,16 +43,22 @@ namespace AquatoxBasedOptimization
             List<string> parameters = new List<string> { "_param1_" };
             AquatoxInputFileProcessor inputFileProcessor = new AquatoxInputFileProcessor(inputFileTemp, parameters);
 
+            //
+            AquatoxOutputFileProcessor outputFileProcessor = new AquatoxOutputFileProcessor(variablesAndIndices); 
+
             //string fileToSave = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/AquatoxBasedOptimization/bin/Debug/test_out.txt";
             //var dict = parameters.ToDictionary(item => item, item => "1");
             //inputFileProcessor.SetParametersBySubstitution(fileToSave, dict);
 
-            ConcurrentBag<string[]> bag = new ConcurrentBag<string[]>();
+            ConcurrentBag<Dictionary<string, ITimeSeries>> bag = new ConcurrentBag<Dictionary<string, ITimeSeries>>();
+            ConcurrentBag<double> bagOfDistances = new ConcurrentBag<double>();
+
+            PredefinedDistanceCalculator distanceCalculator = new PredefinedDistanceCalculator();
 
             Parallel.For(1, 10, (i) =>
             {
                 string fileToSave = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/AquatoxBasedOptimization/bin/Debug/test_out_" + i + ".txt";
-                var dict = parameters.ToDictionary(item => item, item => 0.ToString());
+                var dict = parameters.ToDictionary(item => item, item => i.ToString("0.00000000000000E+0000"));
                 inputFileProcessor.SetParametersBySubstitution(fileToSave, dict);
                 SimpleSingleLauncher simpleSingleLauncher = new SimpleSingleLauncher();
                 simpleSingleLauncher.File = new FileInfo(@"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/PROGRAM/aquatox.exe");
@@ -46,17 +67,21 @@ namespace AquatoxBasedOptimization
                 simpleSingleLauncher.SetParameters("EPSAVE " + fileToSave + " \"" + resultiveFileName + "\"");
                 simpleSingleLauncher.Run();
 
-                bag.Add(File.ReadAllLines(resultiveFileName));
+                var outputTest = outputFileProcessor.ReadOutputs(resultiveFileName);
+
+                var dist = distanceCalculator.CalculateDistance(outputTest["Oxygen"], observations["Oxygen"].DepthRelatedObservations["1,0"]);
+
+                bagOfDistances.Add(dist);
+                bag.Add(outputTest);
             });
+
+            //var outputTest = outputFileProcessor.ReadOutputs("test1.txt");
+
+            //
+            //distanceCalculator.CalculateDistance(outputTest["Oxygen"], observations["Oxygen"].DepthRelatedObservations["1,0"]);
 
             string[] strings = File.ReadAllLines("output.txt");
             string[] stringsInput = File.ReadAllLines(@"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/STUDIES/Lake Pyhajarvi Finland.txt");
-            int counterStart = strings.Skip(1).Where(str => str.Contains("{")).Count();
-            int counterEnd = strings.Skip(1).Where(str => str.Contains("}")).Count();
-
-            int counterStartInput = stringsInput.Where(str => str.Contains("{")).Count();
-            int counterEndInput = stringsInput.Where(str => str.Contains("}")).Count();
-
 
             Console.WriteLine("End!");
             Console.Read();
