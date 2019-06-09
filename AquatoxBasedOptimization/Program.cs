@@ -1,4 +1,5 @@
 ﻿using AquatoxBasedOptimization.AquatoxBasedModel.Implementation;
+using AquatoxBasedOptimization.AquatoxBasedProblem.Implementation;
 using AquatoxBasedOptimization.AquatoxFilesProcessing.Input;
 using AquatoxBasedOptimization.AquatoxFilesProcessing.Input.ParametersWriters;
 using AquatoxBasedOptimization.AquatoxFilesProcessing.Output;
@@ -84,7 +85,7 @@ namespace AquatoxBasedOptimization
 
             ConcurrentBag<AquatoxModelOutput> outputs = new ConcurrentBag<AquatoxModelOutput>();
 
-            Parallel.For(1, 10, (i) =>
+            Parallel.For(1, 2, (i) =>
             {
                 AquatoxModelInput someModelInput = new AquatoxModelInput(new Dictionary<string, string> { { "_param1_", i.ToString("0.00000000000000E+0000") } });
                 model.SetInput(someModelInput, i);
@@ -100,6 +101,12 @@ namespace AquatoxBasedOptimization
 
             //string[] strings = File.ReadAllLines("output.txt");
             //string[] stringsInput = File.ReadAllLines(@"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/STUDIES/Lake Pyhajarvi Finland.txt");
+
+            AquatoxParametersTuningProblem tuningProblem = new AquatoxParametersTuningProblem();
+            tuningProblem.SetDistanceCalculator(distanceCalculator);
+            tuningProblem.SetObservations(observations);
+            tuningProblem.SetModel(model);
+            tuningProblem.Evaluate(new AquatoxParametersToTune(Enumerable.Range(0, 9).Select(i => new AquatoxModelInput(new Dictionary<string, string> { { "_param1_", i.ToString("0.00000000000000E+0000") } })).ToArray()));
 
             Console.WriteLine("End!");
             Console.Read();
