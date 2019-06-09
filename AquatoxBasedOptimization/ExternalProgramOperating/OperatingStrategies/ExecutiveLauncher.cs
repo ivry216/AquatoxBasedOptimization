@@ -16,11 +16,12 @@ namespace AquatoxBasedOptimization.ExternalProgramOperating.OperatingStrategies
 
         public ExecutiveLauncher()
         {
-            _processInfo = new ProcessStartInfo();
+            
         }
 
         public void Execute()
         {
+            _processInfo = new ProcessStartInfo();
             _processInfo.FileName = _executionFile.FullName;
             _processInfo.Arguments = _executionParameters;
 

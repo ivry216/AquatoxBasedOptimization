@@ -50,7 +50,10 @@ namespace AquatoxBasedOptimization
             ConcurrentBag<double> bagOfDistances = new ConcurrentBag<double>();
 
             PredefinedDistanceCalculator distanceCalculator = new PredefinedDistanceCalculator();
-            
+
+            SimpleSingleLauncher simpleSingleLauncher = new SimpleSingleLauncher();
+            simpleSingleLauncher.File = new FileInfo(@"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/PROGRAM/aquatox.exe");
+
 
             Parallel.For(1, 10, (i) =>
             {
@@ -60,9 +63,7 @@ namespace AquatoxBasedOptimization
                 
                 string resultiveFileName = "test" + i + ".txt";
 
-                SimpleSingleLauncher simpleSingleLauncher = new SimpleSingleLauncher();
-                simpleSingleLauncher.File = new FileInfo(@"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/PROGRAM/aquatox.exe");
-
+                
                 simpleSingleLauncher.SetParameters("EPSAVE " + inputFilePath + " \"" + resultiveFileName + "\"");
                 simpleSingleLauncher.Run();
 
