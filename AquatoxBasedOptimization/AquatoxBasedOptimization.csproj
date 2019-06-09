@@ -98,6 +98,8 @@
     <Compile Include="ExternalProgramOperating\OperatingStrategies\IOperatingStrategyParametrized.cs" />
     <Compile Include="ExternalProgramOperating\SimpleSingleLauncher.cs" />
     <Compile Include="Metrics\PredefinedComparing\PredefinedDistanceCalculator.cs" />
+    <Compile Include="OptimizationAlgorithms\IOptimizationAlgorithm.cs" />
+    <Compile Include="OptimizationAlgorithms\IOptimizationAlgorithmParameters.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -111,6 +113,8 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="OptimizationAlgorithms\Pso\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

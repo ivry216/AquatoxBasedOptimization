@@ -2,7 +2,14 @@
 
 namespace AquatoxBasedOptimization.AquatoxBasedProblem
 {
-    public interface IParallelProblem<TModel, TModelInput, TModelOutput, TValues, TAlternatives>
+    public interface IParallelProblem<TValues, TAlternatives>
+        where TValues : IParallelProblemValues
+        where TAlternatives : IParallelProblemAlternative
+    {
+        TValues Evaluate(TAlternatives alternatives);
+    }
+
+    public interface IParallelProblem<TModel, TModelInput, TModelOutput, TValues, TAlternatives> : IParallelProblem<TValues, TAlternatives>
         where TModel : IModel<TModelInput, TModelOutput>
         where TModelInput : IModelInput
         where TModelOutput : IModelOutput
@@ -10,6 +17,5 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem
         where TAlternatives : IParallelProblemAlternative
     {
         void SetModel(TModel model);
-        TValues Evaluate(TAlternatives alternatives);
     }
 }
