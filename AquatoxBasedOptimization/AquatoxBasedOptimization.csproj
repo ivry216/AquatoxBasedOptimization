@@ -63,6 +63,12 @@
     <Compile Include="AquatoxBasedModel\Implementation\AquatoxModelInput.cs" />
     <Compile Include="AquatoxBasedModel\Implementation\AquatoxModelOutput.cs" />
     <Compile Include="AquatoxBasedModel\Implementation\AquatoxModelParameters.cs" />
+    <Compile Include="AquatoxBasedProblem\Implementation\AquatoxParametersToTune.cs" />
+    <Compile Include="AquatoxBasedProblem\Implementation\AquatoxParametersTuningProblem.cs" />
+    <Compile Include="AquatoxBasedProblem\Implementation\AquatoxTuningProblemValues.cs" />
+    <Compile Include="AquatoxBasedProblem\IParallelProblem.cs" />
+    <Compile Include="AquatoxBasedProblem\IParallelProblemAlternative.cs" />
+    <Compile Include="AquatoxBasedProblem\IParallelProblemValues.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\AquatoxInputFileProcessor.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\IAquatoxInputFileProcessor.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\IInputParameterWriter.cs" />
