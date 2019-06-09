@@ -46,25 +46,24 @@ namespace AquatoxBasedOptimization
             //
             AquatoxOutputFileProcessor outputFileProcessor = new AquatoxOutputFileProcessor(variablesAndIndices); 
 
-            //string fileToSave = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/AquatoxBasedOptimization/bin/Debug/test_out.txt";
-            //var dict = parameters.ToDictionary(item => item, item => "1");
-            //inputFileProcessor.SetParametersBySubstitution(fileToSave, dict);
-
             ConcurrentBag<Dictionary<string, ITimeSeries>> bag = new ConcurrentBag<Dictionary<string, ITimeSeries>>();
             ConcurrentBag<double> bagOfDistances = new ConcurrentBag<double>();
 
             PredefinedDistanceCalculator distanceCalculator = new PredefinedDistanceCalculator();
+            
 
             Parallel.For(1, 10, (i) =>
             {
-                string fileToSave = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/AquatoxBasedOptimization/bin/Debug/test_out_" + i + ".txt";
-                var dict = parameters.ToDictionary(item => item, item => i.ToString("0.00000000000000E+0000"));
-                inputFileProcessor.SetParametersBySubstitution(fileToSave, dict);
+                string inputFilePath = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/AquatoxBasedOptimization/bin/Debug/test_out_" + i + ".txt";
+                var parametersValuesPairs = parameters.ToDictionary(item => item, item => i.ToString("0.00000000000000E+0000"));
+                inputFileProcessor.SetParametersBySubstitution(inputFilePath, parametersValuesPairs);
+                
+                string resultiveFileName = "test" + i + ".txt";
+
                 SimpleSingleLauncher simpleSingleLauncher = new SimpleSingleLauncher();
                 simpleSingleLauncher.File = new FileInfo(@"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/PROGRAM/aquatox.exe");
 
-                string resultiveFileName = "test" + i + ".txt";
-                simpleSingleLauncher.SetParameters("EPSAVE " + fileToSave + " \"" + resultiveFileName + "\"");
+                simpleSingleLauncher.SetParameters("EPSAVE " + inputFilePath + " \"" + resultiveFileName + "\"");
                 simpleSingleLauncher.Run();
 
                 var outputTest = outputFileProcessor.ReadOutputs(resultiveFileName);
