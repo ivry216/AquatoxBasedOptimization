@@ -1,4 +1,4 @@
-﻿namespace AquatoxBasedOptimization.OptimizationAlgorithms
+﻿namespace Optimization.OptimizationAlgorithms
 {
     public interface IOptimizationAlgorithmParameters
     {

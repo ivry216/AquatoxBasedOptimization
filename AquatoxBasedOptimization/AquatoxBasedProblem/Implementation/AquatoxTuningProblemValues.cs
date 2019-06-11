@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using Optimization.OptimizationProblems;
+using System.Collections.Concurrent;
 
 namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 {

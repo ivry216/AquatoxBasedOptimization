@@ -1,4 +1,4 @@
-﻿namespace AquatoxBasedOptimization.AquatoxBasedModel
+﻿namespace Optimization.OptimizationProblems.Models
 {
     public interface IModel<TInput, TOutput>
         where TInput : IModelInput

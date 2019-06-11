@@ -1,6 +1,6 @@
-﻿using AquatoxBasedOptimization.AquatoxBasedModel;
+﻿using Optimization.OptimizationProblems.Models;
 
-namespace AquatoxBasedOptimization.AquatoxBasedProblem
+namespace Optimization.OptimizationProblems
 {
     public interface IParallelProblem<TValues, TAlternatives>
         where TValues : IParallelProblemValues

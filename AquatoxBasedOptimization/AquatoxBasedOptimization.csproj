@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,19 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AquatoxBasedModel\Implementation\AquatoxModel.cs" />
-    <Compile Include="AquatoxBasedModel\IModel.cs" />
-    <Compile Include="AquatoxBasedModel\IModelInput.cs" />
-    <Compile Include="AquatoxBasedModel\IModelOutput.cs" />
-    <Compile Include="AquatoxBasedModel\IModelParameters.cs" />
     <Compile Include="AquatoxBasedModel\Implementation\AquatoxModelInput.cs" />
     <Compile Include="AquatoxBasedModel\Implementation\AquatoxModelOutput.cs" />
     <Compile Include="AquatoxBasedModel\Implementation\AquatoxModelParameters.cs" />
     <Compile Include="AquatoxBasedProblem\Implementation\AquatoxParametersToTune.cs" />
     <Compile Include="AquatoxBasedProblem\Implementation\AquatoxParametersTuningProblem.cs" />
     <Compile Include="AquatoxBasedProblem\Implementation\AquatoxTuningProblemValues.cs" />
-    <Compile Include="AquatoxBasedProblem\IParallelProblem.cs" />
-    <Compile Include="AquatoxBasedProblem\IParallelProblemAlternative.cs" />
-    <Compile Include="AquatoxBasedProblem\IParallelProblemValues.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\AquatoxInputFileProcessor.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\IAquatoxInputFileProcessor.cs" />
     <Compile Include="AquatoxFilesProcessing\Input\ParametersWriters\IInputParameterWriter.cs" />
@@ -98,10 +106,6 @@
     <Compile Include="ExternalProgramOperating\OperatingStrategies\IOperatingStrategyParametrized.cs" />
     <Compile Include="ExternalProgramOperating\SimpleSingleLauncher.cs" />
     <Compile Include="Metrics\PredefinedComparing\PredefinedDistanceCalculator.cs" />
-    <Compile Include="OptimizationAlgorithms\DifferentialEvolutionAlgorithm\DifferentialEvolution.cs" />
-    <Compile Include="OptimizationAlgorithms\DifferentialEvolutionAlgorithm\DifferentialEvolutionParameters.cs" />
-    <Compile Include="OptimizationAlgorithms\IOptimizationAlgorithm.cs" />
-    <Compile Include="OptimizationAlgorithms\IOptimizationAlgorithmParameters.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,6 +119,23 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Optimization\Optimization.csproj">
+      <Project>{9543a74c-d9c1-4133-8265-1464c9a4f793}</Project>
+      <Name>Optimization</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

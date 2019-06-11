@@ -1,12 +1,8 @@
 ﻿using AquatoxBasedOptimization.AquatoxFilesProcessing.Input;
 using AquatoxBasedOptimization.AquatoxFilesProcessing.Output;
 using AquatoxBasedOptimization.ExternalProgramOperating;
-using System;
-using System.Collections.Generic;
-using System.IO;
+using Optimization.OptimizationProblems.Models;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 {

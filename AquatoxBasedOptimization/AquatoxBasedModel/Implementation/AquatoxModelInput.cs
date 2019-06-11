@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Optimization.OptimizationProblems.Models;
+using System.Collections.Generic;
 
 namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 {

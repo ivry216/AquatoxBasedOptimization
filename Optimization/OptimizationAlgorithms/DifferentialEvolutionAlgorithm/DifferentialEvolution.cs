@@ -1,7 +1,7 @@
-﻿using AquatoxBasedOptimization.AquatoxBasedProblem;
+﻿using Optimization.OptimizationProblems;
 using System;
 
-namespace AquatoxBasedOptimization.OptimizationAlgorithms.DifferentialEvolutionAlgorithm
+namespace Optimization.OptimizationAlgorithms.DifferentialEvolutionAlgorithm
 {
     public class DifferentialEvolution<TProblem, TValues, TAlternatives> : IOptimizationAlgorithm<DifferentialEvolutionParameters, TProblem, TValues, TAlternatives>
         where TAlternatives : IParallelProblemAlternative

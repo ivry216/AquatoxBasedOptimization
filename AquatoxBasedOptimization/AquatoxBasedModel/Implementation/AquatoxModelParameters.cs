@@ -1,4 +1,4 @@
-﻿using AquatoxBasedOptimization.AquatoxFilesProcessing.Output;
+﻿using Optimization.OptimizationProblems.Models;
 using System.Collections.Generic;
 using System.IO;
 

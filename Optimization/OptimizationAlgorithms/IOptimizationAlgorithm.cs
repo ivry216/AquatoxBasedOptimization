@@ -1,6 +1,6 @@
-﻿using AquatoxBasedOptimization.AquatoxBasedProblem;
+﻿using Optimization.OptimizationProblems;
 
-namespace AquatoxBasedOptimization.OptimizationAlgorithms
+namespace Optimization.OptimizationAlgorithms
 {
     public interface IOptimizationAlgorithm<TParameters, TProblem, TValues, TAlternatives>
         where TParameters : IOptimizationAlgorithmParameters

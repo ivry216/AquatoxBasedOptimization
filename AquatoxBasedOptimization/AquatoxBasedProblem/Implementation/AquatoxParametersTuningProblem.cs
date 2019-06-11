@@ -1,6 +1,7 @@
 ﻿using AquatoxBasedOptimization.AquatoxBasedModel.Implementation;
 using AquatoxBasedOptimization.Data;
 using AquatoxBasedOptimization.Metrics.PredefinedComparing;
+using Optimization.OptimizationProblems;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
