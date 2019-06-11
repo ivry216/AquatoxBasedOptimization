@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OptimizationAlgorithms\AlgorithmsGeneralParameters\GenerationParameters.cs" />
+    <Compile Include="OptimizationAlgorithms\AlgorithmsGeneralParameters\IGenerationParameters.cs" />
+    <Compile Include="OptimizationAlgorithms\DifferentialEvolutionAlgorithm\DeGeneratingType.cs" />
     <Compile Include="OptimizationAlgorithms\DifferentialEvolutionAlgorithm\DifferentialEvolution.cs" />
     <Compile Include="OptimizationAlgorithms\DifferentialEvolutionAlgorithm\DifferentialEvolutionParameters.cs" />
     <Compile Include="OptimizationAlgorithms\IOptimizationAlgorithm.cs" />

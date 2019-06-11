@@ -1,7 +1,6 @@
 ﻿using AquatoxBasedOptimization.AquatoxBasedModel.Implementation;
 using AquatoxBasedOptimization.AquatoxBasedProblem.Implementation;
 using AquatoxBasedOptimization.AquatoxFilesProcessing.Input;
-using AquatoxBasedOptimization.AquatoxFilesProcessing.Input.ParametersWriters;
 using AquatoxBasedOptimization.AquatoxFilesProcessing.Output;
 using AquatoxBasedOptimization.Data;
 using AquatoxBasedOptimization.Data.OutputObservations;
@@ -11,10 +10,8 @@ using AquatoxBasedOptimization.Metrics.PredefinedComparing;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AquatoxBasedOptimization

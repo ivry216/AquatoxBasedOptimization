@@ -6,6 +6,8 @@ namespace Optimization.OptimizationProblems
         where TValues : IParallelProblemValues
         where TAlternatives : IParallelProblemAlternative
     {
+        int Dimension { get; }
+
         TValues Evaluate(TAlternatives alternatives);
     }
 
