@@ -1,10 +1,5 @@
-﻿using AquatoxBasedOptimization.AquatoxBasedModel;
-using AquatoxBasedOptimization.AquatoxBasedProblem;
+﻿using AquatoxBasedOptimization.AquatoxBasedProblem;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AquatoxBasedOptimization.OptimizationAlgorithms.DifferentialEvolutionAlgorithm
 {
