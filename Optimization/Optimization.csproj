@@ -41,20 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OptimizationAlgorithms\AlgorithmsGeneralParameters\GenerationParameters.cs" />
-    <Compile Include="OptimizationAlgorithms\AlgorithmsGeneralParameters\IGenerationParameters.cs" />
-    <Compile Include="OptimizationAlgorithms\DifferentialEvolutionAlgorithm\DeGeneratingType.cs" />
-    <Compile Include="OptimizationAlgorithms\DifferentialEvolutionAlgorithm\DifferentialEvolution.cs" />
-    <Compile Include="OptimizationAlgorithms\DifferentialEvolutionAlgorithm\DifferentialEvolutionParameters.cs" />
-    <Compile Include="OptimizationAlgorithms\IOptimizationAlgorithm.cs" />
-    <Compile Include="OptimizationAlgorithms\IOptimizationAlgorithmParameters.cs" />
-    <Compile Include="OptimizationProblems\IParallelProblem.cs" />
-    <Compile Include="OptimizationProblems\IParallelProblemAlternative.cs" />
-    <Compile Include="OptimizationProblems\IParallelProblemValues.cs" />
-    <Compile Include="OptimizationProblems\Models\IModel.cs" />
-    <Compile Include="OptimizationProblems\Models\IModelInput.cs" />
-    <Compile Include="OptimizationProblems\Models\IModelOutput.cs" />
-    <Compile Include="OptimizationProblems\Models\IModelParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

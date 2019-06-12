@@ -1,7 +1,7 @@
 ﻿using AquatoxBasedOptimization.AquatoxFilesProcessing.Input;
 using AquatoxBasedOptimization.AquatoxFilesProcessing.Output;
 using AquatoxBasedOptimization.ExternalProgramOperating;
-using Optimization.OptimizationProblems.Models;
+using OptimizationProblems.Models;
 using System.Linq;
 
 namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation

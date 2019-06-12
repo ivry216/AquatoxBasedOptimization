@@ -1,4 +1,4 @@
-﻿namespace Optimization.OptimizationProblems.Models
+﻿namespace OptimizationProblems.Models
 {
     public interface IModelParameters
     {

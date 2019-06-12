@@ -1,5 +1,4 @@
 ﻿using AquatoxBasedOptimization.AquatoxBasedModel.Implementation;
-using Optimization.OptimizationProblems;
 
 namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 {
