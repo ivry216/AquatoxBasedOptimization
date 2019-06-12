@@ -1,5 +1,5 @@
 ﻿using AquatoxBasedOptimization.Data;
-using Optimization.OptimizationProblems.Models;
+using OptimizationProblems.Models;
 using System.Collections.Generic;
 
 namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation

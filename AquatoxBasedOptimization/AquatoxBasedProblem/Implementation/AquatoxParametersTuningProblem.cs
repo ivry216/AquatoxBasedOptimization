@@ -1,35 +1,25 @@
 ﻿using AquatoxBasedOptimization.AquatoxBasedModel.Implementation;
 using AquatoxBasedOptimization.Data;
 using AquatoxBasedOptimization.Metrics.PredefinedComparing;
-using Optimization.OptimizationProblems;
+using Optimization.Problem.Parallel;
+using Optimization.Problem.Parallel.Alternatives;
+using Optimization.Problem.Parallel.Values;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 {
-    public class AquatoxParametersTuningProblem : IParallelProblem<AquatoxModel, AquatoxModelInput, AquatoxModelOutput, AquatoxTuningProblemValues, AquatoxParametersToTune>
+    public class AquatoxParametersTuningProblem : ParallelOptimizationProblem<RealObjectiveValues, RealVectorAlternatives>
     {
         private AquatoxModel _model;
         private PredefinedDistanceCalculator _distanceCalculator;
         private Dictionary<string, IOutputObservation> _observations;
 
-        // 
-        public AquatoxTuningProblemValues Evaluate(AquatoxParametersToTune alternatives)
+        public AquatoxParametersTuningProblem(int dimension) : base(dimension)
         {
-            ConcurrentBag<(int Index, double Value)> concurrentResults = new ConcurrentBag<(int Index, double Value)>();
 
-            Parallel.For(0, alternatives.Parameters.Length, (i) =>
-            {
-                _model.SetInput(alternatives.Parameters[i], i);
-                var output = _model.Evaluate(i);
-
-                var dist = _distanceCalculator.CalculateDistance(output.Outputs["Oxygen"], _observations["Oxygen"].DepthRelatedObservations["1,0"]);
-
-                concurrentResults.Add((i, dist));
-            });
-
-            return new AquatoxTuningProblemValues(concurrentResults);
         }
 
         // TODO: move to abstract class
@@ -46,6 +36,23 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
         public void SetObservations(Dictionary<string, IOutputObservation> observations)
         {
             _observations = observations;
+        }
+
+        public override RealObjectiveValues CalculateCriterion(RealVectorAlternatives alternatives)
+        {
+
+            throw new NotImplementedException();
+            //ConcurrentBag<(int Index, double Value)> concurrentResults = new ConcurrentBag<(int Index, double Value)>();
+
+            //Parallel.For(0, alternatives.Alternatives.Length, (i) =>
+            //{
+            //    _model.SetInput(alternatives.Alternatives[i], i);
+            //    var output = _model.Evaluate(i);
+
+            //    var dist = _distanceCalculator.CalculateDistance(output.Outputs["Oxygen"], _observations["Oxygen"].DepthRelatedObservations["1,0"]);
+
+            //    concurrentResults.Add((i, dist));
+            //});
         }
     }
 }

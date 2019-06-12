@@ -1,8 +1,9 @@
 ﻿using AquatoxBasedOptimization.AquatoxBasedModel.Implementation;
+using Optimization.Problem.Parallel;
 
 namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 {
-    public class AquatoxParametersToTune : IParallelProblemAlternative
+    public class AquatoxParametersToTune
     {
         public AquatoxModelInput[] Parameters { get; }
 
