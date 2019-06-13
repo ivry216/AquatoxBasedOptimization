@@ -7,6 +7,8 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 {
     public class AquatoxModelParameters : IModelParameters
     {
+        private Dictionary<string, string> _inputParameters;
+
         public string InputFilePath { get; } = @"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/STUDIES/Lake Pyhajarvi Finland Template.txt";
         public string AquatoxExecutablePath { get; } = @"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/PROGRAM/aquatox.exe";
         public string CurrentDirectory { get; } = Directory.GetCurrentDirectory();
@@ -17,16 +19,21 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
         {
             get
             {
-                return InputParameters;
+                return _inputParameters;
             }
             set
             {
                 InputsInnerNames = value.Values.ToArray();
-                InputParameters = value;
+                _inputParameters = value;
             }
         }
 
         public string[] InputsInnerNames { get; private set; }
+
+        public AquatoxModelParameters()
+        {
+            
+        }
 
         public string BuildInputFileName(int id)
         {

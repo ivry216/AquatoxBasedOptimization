@@ -7,6 +7,8 @@ using AquatoxBasedOptimization.Data.OutputObservations;
 using AquatoxBasedOptimization.Data.OutputVariables;
 using AquatoxBasedOptimization.ExternalProgramOperating;
 using AquatoxBasedOptimization.Metrics.PredefinedComparing;
+using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm;
+using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm.Parallel;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -82,14 +84,14 @@ namespace AquatoxBasedOptimization
 
             ConcurrentBag<AquatoxModelOutput> outputs = new ConcurrentBag<AquatoxModelOutput>();
 
-            Parallel.For(1, 2, (i) =>
-            {
-                AquatoxModelInput someModelInput = new AquatoxModelInput(new Dictionary<string, string> { { "_param1_", i.ToString("0.00000000000000E+0000") } });
-                model.SetInput(someModelInput, i);
-                var result = model.Evaluate(i);
+            //Parallel.For(1, 2, (i) =>
+            //{
+            //    AquatoxModelInput someModelInput = new AquatoxModelInput(new Dictionary<string, string> { { "_param1_", i.ToString("0.00000000000000E+0000") } });
+            //    model.SetInput(someModelInput, i);
+            //    var result = model.Evaluate(i);
 
-                outputs.Add(result);
-            });
+            //    outputs.Add(result);
+            //});
 
             //var outputTest = outputFileProcessor.ReadOutputs("test1.txt");
 
@@ -99,11 +101,26 @@ namespace AquatoxBasedOptimization
             //string[] strings = File.ReadAllLines("output.txt");
             //string[] stringsInput = File.ReadAllLines(@"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/STUDIES/Lake Pyhajarvi Finland.txt");
 
-            AquatoxParametersTuningProblem tuningProblem = new AquatoxParametersTuningProblem();
+            int dimension = modelParameters.InputParameters.Count;
+
+            AquatoxParametersTuningProblem tuningProblem = new AquatoxParametersTuningProblem(1);
             tuningProblem.SetDistanceCalculator(distanceCalculator);
             tuningProblem.SetObservations(observations);
             tuningProblem.SetModel(model);
-            tuningProblem.Evaluate(new AquatoxParametersToTune(Enumerable.Range(0, 9).Select(i => new AquatoxModelInput(new Dictionary<string, string> { { "_param1_", i.ToString("0.00000000000000E+0000") } })).ToArray()));
+
+            DifferentialEvolutionParameters differentialEvolutionParameters = new DifferentialEvolutionParameters();
+            differentialEvolutionParameters.CrossoverProbability = 0.5;
+            differentialEvolutionParameters.DifferentialWeight = 1;
+            differentialEvolutionParameters.GenerationFrom = Enumerable.Repeat(0.0, dimension).ToArray();
+            differentialEvolutionParameters.GenerationTo = Enumerable.Repeat(10.0, dimension).ToArray();
+            differentialEvolutionParameters.GenerationType = Optimization.EvolutionaryAlgorithms.PopulationGenerationType.Uniform;
+            differentialEvolutionParameters.Iterations = 10;
+            differentialEvolutionParameters.Size = 10;
+
+            ParallelDifferentialEvolution differentialEvolutionParallel = new ParallelDifferentialEvolution();
+            differentialEvolutionParallel.SetParameters(differentialEvolutionParameters);
+            differentialEvolutionParallel.SetProblem(tuningProblem);
+            differentialEvolutionParallel.Evaluate();
 
             Console.WriteLine("End!");
             Console.Read();
