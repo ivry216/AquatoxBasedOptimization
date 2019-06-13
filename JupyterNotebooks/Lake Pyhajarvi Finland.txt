@@ -1624,7 +1624,8 @@
      "ToxicityRecord": "Greens"
      "EnteredLightSat":  1.50000000000000E+0001
      "XLightSat": "Bergman 2004 = 11"
-     "KPO4":  _param2_     "XKPO4": "Collins & Wlosinski 1983, p. 33 (dinoflag.)"
+     "KPO4":  _param2_
+     "XKPO4": "Collins & Wlosinski 1983, p. 33 (dinoflag.)"
      "KN":  3.00000000000000E-0002
      "XKN": "Collins & Wlosinski 1983, p. 36"
      "KCarbon":  5.40000000000000E-0002
@@ -1637,7 +1638,8 @@
      "XTMax": ""
      "TRef":  2.00000000000000E+0000
      "XTRef": ""
-     "PMax":  _param1_     "XPMax": "rapid growth, Wetzel"
+     "PMax":  _param1_
+     "XPMax": "rapid growth, Wetzel"
      "KResp":  2.60000000000000E-0002
      "XKResp": ""
      "KMort":  1.00000000000000E-0003
