@@ -40,8 +40,8 @@ namespace AquatoxBasedOptimization
 
             //simpleSingleLauncher.Run();
 
-            string inputFileTemp = @"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/STUDIES/Lake Pyhajarvi Finland Template.txt";
-            List<string> parameters = new List<string> { "_param1_" };
+            string inputFileTemp = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
+            List<string> parameters = new List<string> { "_param1_", "_param2_" };
             AquatoxInputFileProcessor inputFileProcessor = new AquatoxInputFileProcessor(inputFileTemp, parameters);
 
             //
@@ -77,7 +77,7 @@ namespace AquatoxBasedOptimization
             //});
 
             AquatoxModelParameters modelParameters = new AquatoxModelParameters();
-            modelParameters.InputParameters = new Dictionary<string, string>() { { "some fish", "_param1_" } };
+            modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" } };
             AquatoxModel model = new AquatoxModel(outputFileProcessor);
             model.SetParameters(modelParameters);
             //AquatoxModelInput someModelInput = new AquatoxModelInput(new Dictionary<string, string> { { "_param1_", "_param1_" } });
@@ -103,7 +103,7 @@ namespace AquatoxBasedOptimization
 
             int dimension = modelParameters.InputParameters.Count;
 
-            AquatoxParametersTuningProblem tuningProblem = new AquatoxParametersTuningProblem(1);
+            AquatoxParametersTuningProblem tuningProblem = new AquatoxParametersTuningProblem(dimension);
             tuningProblem.SetDistanceCalculator(distanceCalculator);
             tuningProblem.SetObservations(observations);
             tuningProblem.SetModel(model);
