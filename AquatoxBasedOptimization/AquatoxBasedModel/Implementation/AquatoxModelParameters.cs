@@ -9,7 +9,7 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
     {
         private Dictionary<string, string> _inputParameters;
 
-        public string InputFilePath { get; } = @"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/STUDIES/Lake Pyhajarvi Finland Template.txt";
+        public string InputFilePath { get; } = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
         public string AquatoxExecutablePath { get; } = @"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/PROGRAM/aquatox.exe";
         public string CurrentDirectory { get; } = Directory.GetCurrentDirectory();
 
