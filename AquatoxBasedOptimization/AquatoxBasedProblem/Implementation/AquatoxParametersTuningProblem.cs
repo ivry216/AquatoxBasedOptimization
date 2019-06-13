@@ -4,7 +4,6 @@ using AquatoxBasedOptimization.Metrics.PredefinedComparing;
 using Optimization.Problem.Parallel;
 using Optimization.Problem.Parallel.Alternatives;
 using Optimization.Problem.Parallel.Values;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -40,19 +39,20 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 
         public override RealObjectiveValues CalculateCriterion(RealVectorAlternatives alternatives)
         {
+            ConcurrentBag<(int Index, double Value)> concurrentResults = new ConcurrentBag<(int Index, double Value)>();
 
-            throw new NotImplementedException();
-            //ConcurrentBag<(int Index, double Value)> concurrentResults = new ConcurrentBag<(int Index, double Value)>();
+            Parallel.For(0, alternatives.Alternatives.Length, (i) =>
+            {
+                var inputForModel = _model.Parameters.ConvertValuesToInput(alternatives.Alternatives[i]);
+                _model.SetInput(new AquatoxModelInput(inputForModel), i);
+                var output = _model.Evaluate(i);
 
-            //Parallel.For(0, alternatives.Alternatives.Length, (i) =>
-            //{
-            //    _model.SetInput(alternatives.Alternatives[i], i);
-            //    var output = _model.Evaluate(i);
+                var dist = _distanceCalculator.CalculateDistance(output.Outputs["Oxygen"], _observations["Oxygen"].DepthRelatedObservations["1,0"]);
 
-            //    var dist = _distanceCalculator.CalculateDistance(output.Outputs["Oxygen"], _observations["Oxygen"].DepthRelatedObservations["1,0"]);
+                concurrentResults.Add((i, dist));
+            });
 
-            //    concurrentResults.Add((i, dist));
-            //});
+            return new RealObjectiveValues(concurrentResults);
         }
     }
 }

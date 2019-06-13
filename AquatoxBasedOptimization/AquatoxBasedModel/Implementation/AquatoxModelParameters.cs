@@ -1,6 +1,7 @@
 ﻿using OptimizationProblems.Models;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 {
@@ -12,7 +13,20 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 
         public string NumericRepresentationFormat { get; } = "0.00000000000000E+0000";
 
-        public Dictionary<string, string> InputParameters { get; set; }
+        public Dictionary<string, string> InputParameters
+        {
+            get
+            {
+                return InputParameters;
+            }
+            set
+            {
+                InputsInnerNames = value.Values.ToArray();
+                InputParameters = value;
+            }
+        }
+
+        public string[] InputsInnerNames { get; private set; }
 
         public string BuildInputFileName(int id)
         {
@@ -27,6 +41,17 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
         public string BuildAquatoxRunningCommand(int id)
         {
             return "EPSAVE " + BuildInputFileName(id) + " \"" + BuildOutputFileName(id) + "\"";
+        }
+
+        public Dictionary<string, string> ConvertValuesToInput(double[] values)
+        {
+            Dictionary<string, string> input = new Dictionary<string, string>();
+            for (int i = 0; i < InputsInnerNames.Length; i++)
+            {
+                input.Add(InputsInnerNames[i], values[i].ToString("0.00000000000000E+0000"));
+            }
+
+            return input;
         }
     }
 }
