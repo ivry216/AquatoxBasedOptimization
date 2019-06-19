@@ -52,7 +52,7 @@ namespace AquatoxBasedOptimization.Metrics.PredefinedComparing
 
                     if (secondDateArrayIndex >= startingEarlier.Length)
                     {
-                        return distance;
+                        return 1 / (1 + distance);
                     }
                 }
 

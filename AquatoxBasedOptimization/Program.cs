@@ -121,7 +121,11 @@ namespace AquatoxBasedOptimization
             differentialEvolutionParameters.Iterations = 10;
             differentialEvolutionParameters.Size = 10;
 
-            
+            ParallelDifferentialEvolution differentialEvolutionParallel = new ParallelDifferentialEvolution();
+            differentialEvolutionParallel.SetParameters(differentialEvolutionParameters);
+            differentialEvolutionParallel.SetProblem(tuningProblem);
+            differentialEvolutionParallel.AddStatsFollowers(new List<IAlgorithmIterationFollower> { bestAltHistMaker, iterationHistoryMaker });
+            differentialEvolutionParallel.Evaluate();
 
             bestAltHistMaker.SaveToFile();
             iterationHistoryMaker.SaveToFile();
