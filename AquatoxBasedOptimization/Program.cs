@@ -7,6 +7,7 @@ using AquatoxBasedOptimization.Data.OutputObservations;
 using AquatoxBasedOptimization.Data.OutputVariables;
 using AquatoxBasedOptimization.ExternalProgramOperating;
 using AquatoxBasedOptimization.Metrics.PredefinedComparing;
+using Optimization.AlgorithmsControl.AlgorithmRunStatisticsInfrastructure.IterationStatistics;
 using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm;
 using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm.Parallel;
 using System;
@@ -108,19 +109,22 @@ namespace AquatoxBasedOptimization
             tuningProblem.SetObservations(observations);
             tuningProblem.SetModel(model);
 
+            BestAlternativeHistoryMaker bestAltHistMaker = new BestAlternativeHistoryMaker();
+            IterationValuesHistoryMaker iterationHistoryMaker = new IterationValuesHistoryMaker();
+
             DifferentialEvolutionParameters differentialEvolutionParameters = new DifferentialEvolutionParameters();
             differentialEvolutionParameters.CrossoverProbability = 0.5;
             differentialEvolutionParameters.DifferentialWeight = 1;
-            differentialEvolutionParameters.GenerationFrom = Enumerable.Repeat(0.0, dimension).ToArray();
-            differentialEvolutionParameters.GenerationTo = Enumerable.Repeat(10.0, dimension).ToArray();
-            differentialEvolutionParameters.GenerationType = Optimization.EvolutionaryAlgorithms.PopulationGenerationType.Uniform;
+            differentialEvolutionParameters.GenerationParameters.GenerationFrom = Enumerable.Repeat(0.0, dimension).ToArray();
+            differentialEvolutionParameters.GenerationParameters.GenerationTo = Enumerable.Repeat(10.0, dimension).ToArray();
+            differentialEvolutionParameters.GenerationParameters.GenerationType = Optimization.EvolutionaryAlgorithms.PopulationGenerationType.Uniform;
             differentialEvolutionParameters.Iterations = 10;
             differentialEvolutionParameters.Size = 10;
 
-            ParallelDifferentialEvolution differentialEvolutionParallel = new ParallelDifferentialEvolution();
-            differentialEvolutionParallel.SetParameters(differentialEvolutionParameters);
-            differentialEvolutionParallel.SetProblem(tuningProblem);
-            differentialEvolutionParallel.Evaluate();
+            
+
+            bestAltHistMaker.SaveToFile();
+            iterationHistoryMaker.SaveToFile();
 
             Console.WriteLine("End!");
             Console.Read();
