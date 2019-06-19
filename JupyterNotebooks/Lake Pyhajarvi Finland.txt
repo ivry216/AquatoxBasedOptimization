@@ -1644,7 +1644,7 @@
      "XKResp": ""
      "KMort":  1.00000000000000E-0003
      "XKMort": ""
-     "EMort":  9.00000000000000E-0002
+     "EMort":  _param3_
      "XEMort": "9%/d if photosyn = 0"
      "KSed":  3.10000000000000E-0002
      "XKSed": "Collins & Wlosinski 1983, p. 31(0.31)"
@@ -1694,7 +1694,7 @@
      "UseAdaptiveLight": TRUE
      "MaxLightSat":  3.00000000000000E+0002
      "XMaxLightSat": "Default"
-     "MinLightSat":  1.10000000000000E+0001
+     "MinLightSat":  _param4_
      "XMinLightSat": "Default"
      "ScientificName": ""
      "PlantFracLipid":  2.00000000000000E-0001
