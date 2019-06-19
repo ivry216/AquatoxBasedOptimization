@@ -42,7 +42,7 @@ namespace AquatoxBasedOptimization
             //simpleSingleLauncher.Run();
 
             string inputFileTemp = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
-            List<string> parameters = new List<string> { "_param1_", "_param2_" };
+            List<string> parameters = new List<string> { "_param1_", "_param2_", "_param3_", "_param4_" };
             AquatoxInputFileProcessor inputFileProcessor = new AquatoxInputFileProcessor(inputFileTemp, parameters);
 
             //
