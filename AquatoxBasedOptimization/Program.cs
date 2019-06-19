@@ -78,7 +78,7 @@ namespace AquatoxBasedOptimization
             //});
 
             AquatoxModelParameters modelParameters = new AquatoxModelParameters();
-            modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" } };
+            modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" }, { "par3", "_param3_" }, { "par4", "_param4_" } };
             AquatoxModel model = new AquatoxModel(outputFileProcessor);
             model.SetParameters(modelParameters);
             //AquatoxModelInput someModelInput = new AquatoxModelInput(new Dictionary<string, string> { { "_param1_", "_param1_" } });
@@ -118,8 +118,8 @@ namespace AquatoxBasedOptimization
             differentialEvolutionParameters.GenerationParameters.GenerationFrom = Enumerable.Repeat(0.0, dimension).ToArray();
             differentialEvolutionParameters.GenerationParameters.GenerationTo = Enumerable.Repeat(10.0, dimension).ToArray();
             differentialEvolutionParameters.GenerationParameters.GenerationType = Optimization.EvolutionaryAlgorithms.PopulationGenerationType.Uniform;
-            differentialEvolutionParameters.Iterations = 10;
-            differentialEvolutionParameters.Size = 10;
+            differentialEvolutionParameters.Iterations = 1;
+            differentialEvolutionParameters.Size = 20;
 
             ParallelDifferentialEvolution differentialEvolutionParallel = new ParallelDifferentialEvolution();
             differentialEvolutionParallel.SetParameters(differentialEvolutionParameters);
