@@ -4,3 +4,5 @@
 *.suo
 *.user
 JupyterNotebooks/\.ipynb_checkpoints/
+
+AquatoxBasedOptimization/JupyterNotebooks/\.ipynb_checkpoints/
