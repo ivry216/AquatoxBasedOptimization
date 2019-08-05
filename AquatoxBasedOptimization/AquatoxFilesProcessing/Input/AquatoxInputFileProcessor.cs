@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input
 {
-    class AquatoxInputFileProcessor : IAquatoxFileProcessor
+    class AquatoxInputFileProcessor : IAquatoxInputFileProcessor
     {
         private FileInfo _inputFileTemplatePath;
         private string[] _inputFileLines;

@@ -35,14 +35,14 @@ namespace AquatoxBasedOptimization
 
             Console.WriteLine("Starting...");
 
-            //simpleSingleLauncher.Run();
-
-            string inputFileTemp = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
+            // path on server
+            //string inputFileTemp = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
+            string inputFileTemp = @"C:/Users/Ivan/Repositiries/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
             List<string> parameters = new List<string> { "_param1_", "_param2_", "_param3_", "_param4_" };
             AquatoxInputFileProcessor inputFileProcessor = new AquatoxInputFileProcessor(inputFileTemp, parameters);
 
             //
-            AquatoxOutputFileProcessor outputFileProcessor = new AquatoxOutputFileProcessor(variablesAndIndices); 
+            IAquatoxOutputFileProcessor outputFileProcessor = new AquatoxOutputFileProcessor(variablesAndIndices); 
 
             ConcurrentBag<Dictionary<string, ITimeSeries>> bag = new ConcurrentBag<Dictionary<string, ITimeSeries>>();
             ConcurrentBag<double> bagOfDistances = new ConcurrentBag<double>();

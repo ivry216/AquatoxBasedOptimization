@@ -8,12 +8,12 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 {
     public class AquatoxModel : IModel<AquatoxModelInput, AquatoxModelParameters, AquatoxModelOutput>
     {
-        private AquatoxOutputFileProcessor _outputFileProcessor;
+        private IAquatoxOutputFileProcessor _outputFileProcessor;
         private AquatoxInputFileProcessor _inputFileProcessor;
 
         public AquatoxModelParameters Parameters { get; private set; }
 
-        public AquatoxModel(AquatoxOutputFileProcessor outputFileProcessor)
+        public AquatoxModel(IAquatoxOutputFileProcessor outputFileProcessor)
         {
             _outputFileProcessor = outputFileProcessor;
         }

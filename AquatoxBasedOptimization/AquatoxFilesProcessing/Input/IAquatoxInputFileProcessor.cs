@@ -2,7 +2,7 @@
 
 namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input
 {
-    public interface IAquatoxFileProcessor
+    public interface IAquatoxInputFileProcessor
     {
         void SetParametersBySubstitution(string pathToSave, Dictionary<string, string> parametersToSubstitute);
     }
