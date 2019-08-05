@@ -4,29 +4,26 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AquatoxBasedOptimization.Data.OutputObservations
 {
     public class OutputObservationsReaderFromExcel : IOutputObservationsReader
     {
         // Excel file name
-        private const string _fileName = "OutputObservations.xlsx";
+        private readonly string _fileName = "OutputObservations.xlsx";
 
         // Excel table colnames used for data parsing
-        private const string _timeFileColname = "Sampling time";
-        private const string _depthFileColname = "Sample depth";
-        private const string _oxygenFileColname = "Dissolved oxygen mg/l";
+        private readonly string _timeFileColname = "Sampling time";
+        private readonly string _depthFileColname = "Sample depth";
+        private readonly string _oxygenFileColname = "Dissolved oxygen mg/l";
 
-        private const string _timeDtColname = "Datetime";
-        private const string _depthDtColname = "Depth";
-        private const string _oxygenDtColname = "Oxygen";
+        private readonly string _timeDtColname = "Datetime";
+        private readonly string _depthDtColname = "Depth";
+        private readonly string _oxygenDtColname = "Oxygen";
 
-        // 
         private Dictionary<string, string> variablesNamesPairs;
 
-        //
+
         public void SetVariableNames(Dictionary<string, string> variables)
         {
             variablesNamesPairs = variables;
@@ -36,18 +33,15 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
         {
             // TODO: Make checking if the names dictionary is empty or null
 
-            // Initialize variables-indices pairs
-            Dictionary<string, IOutputObservation> observations = new Dictionary<string, IOutputObservation>();
+            var observations = new Dictionary<string, IOutputObservation>();
 
-            FileInfo file = new FileInfo(_fileName);
-            using (ExcelPackage package = new ExcelPackage(file))
+            using (ExcelPackage package = new ExcelPackage(new FileInfo(_fileName)))
             {
-                //get the first worksheet in the workbook
                 ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
-                //
+
                 int nRows = worksheet.Dimension.End.Row;
                 int nCols = worksheet.Dimension.End.Column;
-                //
+
                 // Get time, depth and oxygen columns indices
                 int timeIndex = 0, depthIndex = 0, oxygenIndex = 0;
                 string trialString;
@@ -92,7 +86,7 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                     .ToList();
 
                 // Dictionary with observations for each particular depth
-                Dictionary<string, ITimeSeries> depthRelatedTimeseries = new Dictionary<string, ITimeSeries>();
+                var depthRelatedTimeseries = new Dictionary<string, ITimeSeries>();
                 // Make an output for each depth
                 foreach (var depth in distinctDepths)
                 {
@@ -111,7 +105,7 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                     depthRelatedTimeseries.Add(depth, timeseries);
                 }
 
-                OutputObservation observation = new OutputObservation("Oxygen", depthRelatedTimeseries);
+                var observation = new OutputObservation("Oxygen", depthRelatedTimeseries);
                 observations.Add("Oxygen", observation);
             }
 
