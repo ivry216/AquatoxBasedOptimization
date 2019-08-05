@@ -15,12 +15,9 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input
 
         public AquatoxInputFileProcessor(string inputFileTemplatePath, List<string> parameters)
         {
-            // Initialize template input path
             _inputFileTemplatePath = new FileInfo(inputFileTemplatePath);
-            // Read all its lines
             _inputFileLines = File.ReadAllLines(_inputFileTemplatePath.FullName);
 
-            // 
             InitializeDictionaries(parameters);
         }
 
@@ -33,7 +30,6 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input
 
             for (int i = 0; i < _inputFileLines.Length; i++)
             {
-                // If that line is parameter
                 if (indices.Contains(i))
                 {
                     var parameter = _parameterIndexPair[i];
@@ -44,7 +40,7 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input
                     textWriter.WriteLine(_inputFileLines[i]);
                 }
             }
-            // Close the stream
+
             textWriter.Flush();
             textWriter.Dispose();
             fileStream.Dispose();
@@ -52,13 +48,10 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input
 
         private void InitializeDictionaries(List<string> parameters)
         {
-            // Initialize the wirters
             _parameterWriterPairs = new Dictionary<string, IInputParameterWriter>();
-            // Initialize indices
             _parameterIndexPair = new Dictionary<int, string>();
 
-            // Make a copy of parameters list
-            List<string> trialParameters = new List<string>(parameters);
+            var trialParameters = new List<string>(parameters);
 
             // Trial variables
             string parameterFound = null;
@@ -82,9 +75,8 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Input
 
                 if (isParameterFound)
                 {
-                    // Remove the parameter that was found
                     trialParameters.Remove(parameterFound);
-                    // Add parameter and its properties to the result
+
                     _parameterWriterPairs.Add(parameterFound, new InputParameterWriter(lineContainingParameter, parameterFound));
                     _parameterIndexPair.Add(i, parameterFound);
                 }
