@@ -29,6 +29,36 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
             variablesNamesPairs = variables;
         }
 
+
+        private (int Time, int Depth, int Oxygen) GetColumnIndices(ExcelWorksheet worksheet, int startingRow, int startingCol, int nCols)
+        {
+            string trialString;
+
+            Dictionary<string, int?> wordsIndices = new Dictionary<string, int?> { { _timeFileColname, null }, { _depthFileColname, null }, { _oxygenFileColname, null } };
+            List<string> wordsToFind = wordsIndices.Keys.ToList();
+
+            for (int i = startingCol, j = 0; wordsToFind.Count == 0 || i <= nCols; i++, j++)
+            {
+                trialString = worksheet.Cells[startingRow, i].Value.ToString();
+                foreach (var word in wordsToFind)
+                {
+                    if (trialString.Contains(word))
+                    {
+                        wordsToFind.Remove(word);
+                        wordsIndices[word] = i;
+                    }
+                }
+            }
+
+            if (wordsIndices.Values.Any(v => v == null))
+            {
+                throw new Exception($"Could not find {string.Join(", ", wordsIndices.Where(pair => pair.Value == null).Select(pair => pair.Key))}");
+            }
+
+            return (wordsIndices[_timeFileColname].Value, wordsIndices[_depthFileColname].Value, wordsIndices[_oxygenFileColname].Value);
+        }
+
+
         public Dictionary<string, IOutputObservation> ReadOutputVariableObservations()
         {
             // TODO: Make checking if the names dictionary is empty or null
@@ -42,25 +72,7 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                 int nRows = worksheet.Dimension.End.Row;
                 int nCols = worksheet.Dimension.End.Column;
 
-                // Get time, depth and oxygen columns indices
-                int timeIndex = 0, depthIndex = 0, oxygenIndex = 0;
-                string trialString;
-                for (int i = 1, j = 0; i <= nCols; i++, j++)
-                {
-                    trialString = worksheet.Cells[1, i].Value.ToString();
-                    if (trialString.Contains(_timeFileColname))
-                    {
-                        timeIndex = i;
-                    }
-                    if (trialString.Contains(_depthFileColname))
-                    {
-                        depthIndex = i;
-                    }
-                    if (trialString.Contains(_oxygenFileColname))
-                    {
-                        oxygenIndex = i;
-                    }
-                }
+                var (timeIndex, depthIndex, oxygenIndex) = GetColumnIndices(worksheet, startingRow: 1, startingCol: 1, nCols: nCols);
 
                 // Get all depths
                 DataTable dataTable = new DataTable();
