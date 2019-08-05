@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquatoxBasedOptimization", "AquatoxBasedOptimization\AquatoxBasedOptimization.csproj", "{0CA880D7-C586-454F-90FE-0AECC5148911}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Optimization", "..\..\DynamicalModeling\dynamical-system-modeling\Optimization\Optimization.csproj", "{6C6D836E-091F-4266-AA58-3B29FAD95EF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Optimization", "..\dynamical-system-modeling\Optimization\Optimization.csproj", "{6C6D836E-091F-4266-AA58-3B29FAD95EF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
