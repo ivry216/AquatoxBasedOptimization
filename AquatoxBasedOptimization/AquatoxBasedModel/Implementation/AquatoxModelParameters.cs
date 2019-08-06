@@ -11,7 +11,7 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 
         //string inputFileTemp = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
         public string InputFilePath { get; } = @"C:/Users/Ivan/Repositiries/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
-        public string AquatoxExecutablePath { get; } = @"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/PROGRAM/aquatox.exe";
+        public string AquatoxExecutablePath { get; } = @"C:/Users/Ivan/aquatox/AQUATOX R3.2/PROGRAM/aquatox.exe";
         public string CurrentDirectory { get; } = Directory.GetCurrentDirectory();
         public string NumericRepresentationFormat { get; } = "0.00000000000000E+0000";
 
