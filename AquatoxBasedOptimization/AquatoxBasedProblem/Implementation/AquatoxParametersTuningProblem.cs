@@ -43,7 +43,7 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 
             Parallel.For(0, alternatives.Alternatives.Length, (i) =>
             {
-                var inputForModel = _model.Parameters.ConvertValuesToInput(alternatives.Alternatives[i]);
+                var inputForModel = _model.ConvertValuesToInput(alternatives.Alternatives[i]);
                 _model.SetInput(new AquatoxModelInput(inputForModel), i);
                 var output = _model.Evaluate(i);
 
