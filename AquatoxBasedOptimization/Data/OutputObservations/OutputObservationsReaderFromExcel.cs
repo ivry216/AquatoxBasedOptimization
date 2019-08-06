@@ -37,8 +37,12 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
             Dictionary<string, int?> wordsIndices = new Dictionary<string, int?> { { _timeFileColname, null }, { _depthFileColname, null }, { _oxygenFileColname, null } };
             List<string> wordsToFind = wordsIndices.Keys.ToList();
 
+            bool toDelete = false;
+            string thisWord = null;
+
             for (int i = startingCol, j = 0; wordsToFind.Count == 0 || i <= nCols; i++, j++)
             {
+                toDelete = false;
                 trialString = worksheet.Cells[startingRow, i].Value.ToString();
                 foreach (var word in wordsToFind)
                 {
@@ -46,7 +50,15 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                     {
                         wordsToFind.Remove(word);
                         wordsIndices[word] = i;
+                        thisWord = word;
+                        toDelete = true;
+                        break;
                     }
+                }
+
+                if (toDelete)
+                {
+                    wordsToFind.Remove(thisWord);
                 }
             }
 
