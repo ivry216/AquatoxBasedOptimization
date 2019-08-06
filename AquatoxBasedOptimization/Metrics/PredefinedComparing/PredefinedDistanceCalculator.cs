@@ -1,56 +1,57 @@
 ﻿using AquatoxBasedOptimization.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace AquatoxBasedOptimization.Metrics.PredefinedComparing
 {
     // TODO: Make it predefined
     public class PredefinedDistanceCalculator
     {
-        public double CalculateDistance(ITimeSeries output, ITimeSeries observations)
+        private (DateTime[] earlierDates, DateTime[] laterDates, double[] earlierValue, double[] laterValues) GetEarlieAndLaterData(ITimeSeries output, ITimeSeries observations)
         {
-            // Get dates
             var outputDates = output.Times.Select(date => date.Date).ToArray();
             var observationDates = observations.Times.Select(date => date.Date).ToArray();
 
-            // Run distance calculating
-            double distance = 0;
-
-            // Date
-            DateTime[] startingEarlier;
-            DateTime[] startingLater;
-            // Values
+            DateTime[] startingEarlieDates;
+            DateTime[] startingLaterDates;
             double[] startingEarlierValues;
             double[] startingLaterValues;
 
             // Get the time series that is starting earlier
             if (outputDates.Min() <= observationDates.Min())
             {
-                startingEarlier = outputDates;
-                startingLater = observationDates;
+                startingEarlieDates = outputDates;
+                startingLaterDates = observationDates;
                 startingEarlierValues = output.Values;
                 startingLaterValues = observations.Values;
             }
             else
             {
-                startingLater = outputDates;
-                startingEarlier = observationDates;
+                startingLaterDates = outputDates;
+                startingEarlieDates = observationDates;
                 startingEarlierValues = observations.Values;
                 startingLaterValues = output.Values;
             }
 
+            return (startingEarlieDates, startingLaterDates, startingEarlierValues, startingLaterValues);
+        }
 
+        public double CalculateDistance(ITimeSeries output, ITimeSeries observations)
+        {
+            var (startingEarlieDates, startingLaterDates, startingEarlierValues, startingLaterValues) = GetEarlieAndLaterData(output, observations);
+
+            double distance = 0;
+
+            // TODO: make a precalculation of indices to calculate the distances 
             int secondDateArrayIndex = 0;
-            for (int i = 0; i < startingLater.Length; i++)
+            for (int i = 0; i < startingLaterDates.Length; i++)
             {
-                while(!startingEarlier[secondDateArrayIndex].Equals(startingLater[i]))
+                while(!startingEarlieDates[secondDateArrayIndex].Equals(startingLaterDates[i]))
                 {
                     secondDateArrayIndex++;
 
-                    if (secondDateArrayIndex >= startingEarlier.Length)
+                    if (secondDateArrayIndex >= startingEarlieDates.Length)
                     {
                         return 1 / (1 + distance);
                     }
