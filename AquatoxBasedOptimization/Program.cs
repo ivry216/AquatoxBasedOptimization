@@ -49,9 +49,6 @@ namespace AquatoxBasedOptimization
 
             PredefinedDistanceCalculator distanceCalculator = new PredefinedDistanceCalculator();
 
-            SimpleSingleLauncher simpleSingleLauncher = new SimpleSingleLauncher();
-            simpleSingleLauncher.File = new FileInfo(@"C:/Users/ivanry/fixed_aquatox/AQUATOX R3.2/PROGRAM/aquatox.exe");
-
 
             AquatoxModelParameters modelParameters = new AquatoxModelParameters();
             modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" }, { "par3", "_param3_" }, { "par4", "_param4_" } };

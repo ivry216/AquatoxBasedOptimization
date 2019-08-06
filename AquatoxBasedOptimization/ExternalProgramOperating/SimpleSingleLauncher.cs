@@ -1,15 +1,12 @@
 ﻿using AquatoxBasedOptimization.ExternalProgramOperating.OperatingStrategies;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AquatoxBasedOptimization.ExternalProgramOperating
 {
     public class SimpleSingleLauncher : ExternalProgramLauncher<ExecutiveLauncher>
     {
+        #region Constructor
+
         public SimpleSingleLauncher() : base()
         {
         }
@@ -24,11 +21,17 @@ namespace AquatoxBasedOptimization.ExternalProgramOperating
             this.fileInfo = new FileInfo(fileInfo.FullName);
         }
 
+        #endregion Constructor
+
+        #region Main Methods
+
         public override void Run()
         {
             operatingStrategy.SetExecutiveFile(fileInfo);
             operatingStrategy.SetExecutionParameters(parameters);
             operatingStrategy.Execute();
         }
+
+        #endregion Main Methods
     }
 }

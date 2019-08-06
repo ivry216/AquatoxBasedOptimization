@@ -1,23 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AquatoxBasedOptimization.ExternalProgramOperating.OperatingStrategies
 {
     public class ExecutiveLauncher : IOperatingStrategyParametrized
     {
+        #region Fields
+
         private string _executionParameters;
         private FileInfo _executionFile;
         private ProcessStartInfo _processInfo;
 
+        #endregion Fields
+
+        #region Constructor
+
         public ExecutiveLauncher()
-        {
-            
-        }
+        {}
+
+        #endregion Constructor
+
+        #region Main Methods
 
         public void Execute()
         {
@@ -40,5 +43,7 @@ namespace AquatoxBasedOptimization.ExternalProgramOperating.OperatingStrategies
         {
             _executionFile = fileInfo;
         }
+
+        #endregion Main Methods
     }
 }
