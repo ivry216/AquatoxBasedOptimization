@@ -9,15 +9,29 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
 {
     public class AquatoxModel : IModel<AquatoxModelInput, AquatoxModelParameters, AquatoxModelOutput>
     {
+        #region Fields
+
         private IAquatoxOutputFileProcessor _outputFileProcessor;
         private IAquatoxInputFileProcessor _inputFileProcessor;
 
+        #endregion Fields
+
+        #region Properties
+
         public AquatoxModelParameters Parameters { get; private set; }
+
+        #endregion Properties
+
+        #region Constructor
 
         public AquatoxModel(IAquatoxOutputFileProcessor outputFileProcessor)
         {
             _outputFileProcessor = outputFileProcessor;
         }
+
+        #endregion Constructor
+
+        #region Main Methods
 
         public void SetInput(AquatoxModelInput modelInput, int id)
         {
@@ -41,30 +55,40 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
             return new AquatoxModelOutput(_outputFileProcessor.ReadOutputs(BuildOutputFileName(id)));
         }
 
-        public string BuildInputFileName(int id)
-        {
-            return Parameters.CurrentDirectory + "\\Input" + id + ".txt";
-        }
+        #endregion Main Methods
 
-        public string BuildOutputFileName(int id)
-        {
-            return "Output_" + id + ".txt";
-        }
-
-        public string BuildAquatoxRunningCommand(int id)
-        {
-            return "EPSAVE " + BuildInputFileName(id) + " \"" + BuildOutputFileName(id) + "\"";
-        }
+        #region Converting To Input
 
         public Dictionary<string, string> ConvertValuesToInput(double[] values)
         {
             Dictionary<string, string> input = new Dictionary<string, string>();
             for (int i = 0; i < Parameters.InputsInnerNames.Length; i++)
             {
-                input.Add(Parameters.InputsInnerNames[i], values[i].ToString("0.00000000000000E+0000"));
+                input.Add(Parameters.InputsInnerNames[i], values[i].ToString(Parameters.NumericRepresentationFormat));
             }
 
             return input;
         }
+
+        #endregion Converting To Input
+
+        #region Supporting Methods
+
+        private string BuildInputFileName(int id)
+        {
+            return Parameters.CurrentDirectory + "\\Input" + id + ".txt";
+        }
+
+        private string BuildOutputFileName(int id)
+        {
+            return "Output_" + id + ".txt";
+        }
+
+        private string BuildAquatoxRunningCommand(int id)
+        {
+            return "EPSAVE " + BuildInputFileName(id) + " \"" + BuildOutputFileName(id) + "\"";
+        }
+
+        #endregion Supporting Methods
     }
 }
