@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output.Converter
 {
@@ -24,11 +25,13 @@ namespace AquatoxBasedOptimization.AquatoxFilesProcessing.Output.Converter
                 .Replace("}", "")
                 .Replace("Results at ", " ")
                 .Replace("n=", "")
-                .Replace(" ", "")
                 .Split(';');
 
             // Parse date
             var date = DateTime.Parse(processedLine[0]);
+
+            // TODO: danger, we are loosing processed line
+            processedLine = processedLine.Select(l => l.Replace(" ", "")).ToArray();
 
             // Check if there are variables and indices
             if (VariablesAndIndices == null)
