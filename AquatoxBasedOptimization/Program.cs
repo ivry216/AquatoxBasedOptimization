@@ -28,36 +28,26 @@ namespace AquatoxBasedOptimization
             // Read variable names and indices in output file
             IOutputVariablesReader outputVariablesReader = new OutputVariablesReaderFromExcel();
             Dictionary<string, int> variablesAndIndices = outputVariablesReader.Read();
-
-            // Read the observations file
-            OutputObservationsReaderFromExcel outputObservationsReader = new OutputObservationsReaderFromExcel();
-            var observations = outputObservationsReader.ReadOutputVariableObservations();
-
-            Console.WriteLine("Starting...");
-
             // path on server
             //string inputFileTemp = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
             string inputFileTemp = @"C:/Users/Ivan/Repositiries/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
             List<string> parameters = new List<string> { "_param1_", "_param2_", "_param3_", "_param4_" };
-            AquatoxInputFileProcessor inputFileProcessor = new AquatoxInputFileProcessor(inputFileTemp, parameters);
-
-            //
+            IAquatoxInputFileProcessor inputFileProcessor = new AquatoxInputFileProcessor(inputFileTemp, parameters);
             IAquatoxOutputFileProcessor outputFileProcessor = new AquatoxOutputFileProcessor(variablesAndIndices); 
-
-            ConcurrentBag<Dictionary<string, ITimeSeries>> bag = new ConcurrentBag<Dictionary<string, ITimeSeries>>();
-            ConcurrentBag<double> bagOfDistances = new ConcurrentBag<double>();
 
             PredefinedDistanceCalculator distanceCalculator = new PredefinedDistanceCalculator();
 
-
             AquatoxModelParameters modelParameters = new AquatoxModelParameters();
             modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" }, { "par3", "_param3_" }, { "par4", "_param4_" } };
+
             AquatoxModel model = new AquatoxModel(outputFileProcessor);
             model.SetParameters(modelParameters);
 
-            ConcurrentBag<AquatoxModelOutput> outputs = new ConcurrentBag<AquatoxModelOutput>();
-
             int dimension = modelParameters.InputParameters.Count;
+
+            // Read the observations file
+            OutputObservationsReaderFromExcel outputObservationsReader = new OutputObservationsReaderFromExcel();
+            var observations = outputObservationsReader.ReadOutputVariableObservations();
 
             AquatoxParametersTuningProblem tuningProblem = new AquatoxParametersTuningProblem(dimension);
             tuningProblem.SetDistanceCalculator(distanceCalculator);
