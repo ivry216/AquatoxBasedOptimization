@@ -9,7 +9,7 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
     public class AquatoxModel : IModel<AquatoxModelInput, AquatoxModelParameters, AquatoxModelOutput>
     {
         private IAquatoxOutputFileProcessor _outputFileProcessor;
-        private AquatoxInputFileProcessor _inputFileProcessor;
+        private IAquatoxInputFileProcessor _inputFileProcessor;
 
         public AquatoxModelParameters Parameters { get; private set; }
 
