@@ -40,7 +40,7 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
             bool toDelete = false;
             string thisWord = null;
 
-            for (int i = startingCol, j = 0; wordsToFind.Count == 0 || i <= nCols; i++, j++)
+            for (int i = startingCol, j = 0; wordsToFind.Count != 0 || i <= nCols; i++, j++)
             {
                 toDelete = false;
                 trialString = worksheet.Cells[startingRow, i].Value.ToString();
@@ -49,7 +49,7 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                     if (trialString.Contains(word))
                     {
                         wordsToFind.Remove(word);
-                        wordsIndices[word] = i;
+                        wordsIndices[word] = j;
                         thisWord = word;
                         toDelete = true;
                         break;
