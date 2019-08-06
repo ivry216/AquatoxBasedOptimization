@@ -29,36 +29,5 @@ namespace AquatoxBasedOptimization.AquatoxBasedModel.Implementation
         }
 
         public string[] InputsInnerNames { get; private set; }
-
-        public AquatoxModelParameters()
-        {
-            
-        }
-
-        public string BuildInputFileName(int id)
-        {
-            return CurrentDirectory + "\\Input" + id + ".txt";
-        }
-
-        public string BuildOutputFileName(int id)
-        {
-            return "Output_" + id + ".txt";
-        }
-
-        public string BuildAquatoxRunningCommand(int id)
-        {
-            return "EPSAVE " + BuildInputFileName(id) + " \"" + BuildOutputFileName(id) + "\"";
-        }
-
-        public Dictionary<string, string> ConvertValuesToInput(double[] values)
-        {
-            Dictionary<string, string> input = new Dictionary<string, string>();
-            for (int i = 0; i < InputsInnerNames.Length; i++)
-            {
-                input.Add(InputsInnerNames[i], values[i].ToString("0.00000000000000E+0000"));
-            }
-
-            return input;
-        }
     }
 }
