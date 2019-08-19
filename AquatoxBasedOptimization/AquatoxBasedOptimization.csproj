@@ -89,6 +89,7 @@
     <Compile Include="AquatoxFilesProcessing\Output\Converter\LineInformationExtractor.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\Converter\TimeSeriesBuilder.cs" />
     <Compile Include="AquatoxFilesProcessing\Output\IAquatoxOutputFileProcessor.cs" />
+    <Compile Include="Data\Variable\AquatoxVariablesFileReader.cs" />
     <Compile Include="Data\IOutputObservation.cs" />
     <Compile Include="Data\ITimeSeries.cs" />
     <Compile Include="Data\OutputObservation.cs" />
