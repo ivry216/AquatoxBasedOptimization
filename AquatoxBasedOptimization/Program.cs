@@ -3,6 +3,7 @@ using AquatoxBasedOptimization.AquatoxBasedProblem.Implementation;
 using AquatoxBasedOptimization.AquatoxFilesProcessing.Output;
 using AquatoxBasedOptimization.Data.OutputObservations;
 using AquatoxBasedOptimization.Data.OutputVariables;
+using AquatoxBasedOptimization.Data.Variable;
 using AquatoxBasedOptimization.Metrics.PredefinedComparing;
 using Optimization.AlgorithmsControl.AlgorithmRunStatisticsInfrastructure.IterationStatistics;
 using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm;
@@ -18,6 +19,14 @@ namespace AquatoxBasedOptimization
     {
         static void Main(string[] args)
         {
+            #region Variables
+
+            string variablesFileName = "";
+            AquatoxVariablesFileReader variablesReader = new AquatoxVariablesFileReader();
+            Dictionary<string, AquatoxParameterToTune> modelVariables = variablesReader.ReadParameters(variablesFileName);
+
+            #endregion Variables
+
             #region Model
 
             IOutputVariablesReader outputVariablesReader = new OutputVariablesReaderFromExcel();
@@ -46,6 +55,8 @@ namespace AquatoxBasedOptimization
 
             #endregion Problem
 
+            #region Algorithm
+
             BestAlternativeHistoryMaker bestAltHistMaker = new BestAlternativeHistoryMaker();
             IterationValuesHistoryMaker iterationHistoryMaker = new IterationValuesHistoryMaker();
 
@@ -66,6 +77,8 @@ namespace AquatoxBasedOptimization
 
             bestAltHistMaker.SaveToFile();
             iterationHistoryMaker.SaveToFile();
+
+            #endregion Algorithm
 
             Console.WriteLine("End!");
             Console.Read();
