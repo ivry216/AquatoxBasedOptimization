@@ -1,21 +1,16 @@
 ﻿using AquatoxBasedOptimization.AquatoxBasedModel.Implementation;
 using AquatoxBasedOptimization.AquatoxBasedProblem.Implementation;
-using AquatoxBasedOptimization.AquatoxFilesProcessing.Input;
 using AquatoxBasedOptimization.AquatoxFilesProcessing.Output;
-using AquatoxBasedOptimization.Data;
 using AquatoxBasedOptimization.Data.OutputObservations;
 using AquatoxBasedOptimization.Data.OutputVariables;
-using AquatoxBasedOptimization.ExternalProgramOperating;
 using AquatoxBasedOptimization.Metrics.PredefinedComparing;
 using Optimization.AlgorithmsControl.AlgorithmRunStatisticsInfrastructure.IterationStatistics;
 using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm;
 using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm.Parallel;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace AquatoxBasedOptimization
 {
@@ -23,36 +18,33 @@ namespace AquatoxBasedOptimization
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Reading output variables.");
+            #region Model
 
-            // Read variable names and indices in output file
             IOutputVariablesReader outputVariablesReader = new OutputVariablesReaderFromExcel();
             Dictionary<string, int> variablesAndIndices = outputVariablesReader.Read();
-            // path on server
-            //string inputFileTemp = @"C:/Users/ivanry/Documents/Repositories/AquatoxBasedOptimization/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
-            string inputFileTemp = @"C:/Users/Ivan/Repositiries/AquatoxBasedOptimization/JupyterNotebooks/Lake Pyhajarvi Finland.txt";
-            List<string> parameters = new List<string> { "_param1_", "_param2_", "_param3_", "_param4_" };
-            IAquatoxInputFileProcessor inputFileProcessor = new AquatoxInputFileProcessor(inputFileTemp, parameters);
             IAquatoxOutputFileProcessor outputFileProcessor = new AquatoxOutputFileProcessor(variablesAndIndices); 
-
-            PredefinedDistanceCalculator distanceCalculator = new PredefinedDistanceCalculator();
-
             AquatoxModelParameters modelParameters = new AquatoxModelParameters();
             modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" }, { "par3", "_param3_" }, { "par4", "_param4_" } };
-
             AquatoxModel model = new AquatoxModel(outputFileProcessor);
             model.SetParameters(modelParameters);
 
+            #endregion Model
+
             int dimension = modelParameters.InputParameters.Count;
 
-            // Read the observations file
+            #region Problem
+
+            PredefinedDistanceCalculator distanceCalculator = new PredefinedDistanceCalculator();
+
             OutputObservationsReaderFromExcel outputObservationsReader = new OutputObservationsReaderFromExcel();
             var observations = outputObservationsReader.ReadOutputVariableObservations();
-
+            
             AquatoxParametersTuningProblem tuningProblem = new AquatoxParametersTuningProblem(dimension);
             tuningProblem.SetDistanceCalculator(distanceCalculator);
             tuningProblem.SetObservations(observations);
             tuningProblem.SetModel(model);
+
+            #endregion Problem
 
             BestAlternativeHistoryMaker bestAltHistMaker = new BestAlternativeHistoryMaker();
             IterationValuesHistoryMaker iterationHistoryMaker = new IterationValuesHistoryMaker();
@@ -63,7 +55,7 @@ namespace AquatoxBasedOptimization
             differentialEvolutionParameters.GenerationParameters.GenerationFrom = Enumerable.Repeat(0.0, dimension).ToArray();
             differentialEvolutionParameters.GenerationParameters.GenerationTo = Enumerable.Repeat(10.0, dimension).ToArray();
             differentialEvolutionParameters.GenerationParameters.GenerationType = Optimization.EvolutionaryAlgorithms.PopulationGenerationType.Uniform;
-            differentialEvolutionParameters.Iterations = 1;
+            differentialEvolutionParameters.Iterations = 10;
             differentialEvolutionParameters.Size = 20;
 
             ParallelDifferentialEvolution differentialEvolutionParallel = new ParallelDifferentialEvolution();

@@ -60,7 +60,7 @@ namespace AquatoxBasedOptimization.Metrics.PredefinedComparing
                 distance += Math.Abs(startingLaterValues[i] - startingEarlierValues[secondDateArrayIndex]);
             }
 
-            return 1/(1 + distance);
+            return 1 / (1 + distance);
         }
     }
 }
