@@ -1630,7 +1630,7 @@
      "XKN": "Collins & Wlosinski 1983, p. 36"
      "KCarbon":  5.40000000000000E-0002
      "XKCarbon": "Collins & Wlosinski 1983, (greens)"
-     "Q10":  2.00000000000000E+0000
+     "Q10":  _param5_
      "XQ10": ""
      "TOpt":  8.00000000000000E+0000
      "XTOpt": "22"
