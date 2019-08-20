@@ -135,5 +135,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dynamical-system-modeling\Optimization\Optimization.csproj">
+      <Project>{6c6d836e-091f-4266-aa58-3b29fad95ef8}</Project>
+      <Name>Optimization</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
