@@ -1,8 +1,10 @@
 ﻿using AquatoxBasedOptimization.AquatoxBasedModel.Implementation;
 using AquatoxBasedOptimization.Data;
 using AquatoxBasedOptimization.Metrics.PredefinedComparing;
-using Optimization.Problem.Parallel;
+using Optimization.Problem.Constrains;
+using Optimization.Problem.Constrains.Parallel;
 using Optimization.Problem.Parallel.Alternatives;
+using Optimization.Problem.Parallel.Constrained;
 using Optimization.Problem.Parallel.Values;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 {
-    public class AquatoxParametersTuningProblem : ParallelOptimizationProblem<RealObjectiveValues, RealVectorAlternatives>
+    public class AquatoxParametersTuningProblem : ParallelOptimizationConstrainedProblem<RealObjectiveValues, RealVectorAlternatives>
     {
         private AquatoxModel _model;
         private PredefinedDistanceCalculator _distanceCalculator;
         private Dictionary<string, IOutputObservation> _observations;
 
-        public AquatoxParametersTuningProblem(int dimension) : base(dimension)
+        public AquatoxParametersTuningProblem(int dimension, HardAndSoftConstrainer constrainer) : base(dimension, constrainer)
         {
 
         }
@@ -43,13 +45,19 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 
             Parallel.For(0, alternatives.Alternatives.Length, (i) =>
             {
-                var inputForModel = _model.ConvertValuesToInput(alternatives.Alternatives[i]);
-                _model.SetInput(new AquatoxModelInput(inputForModel), i);
-                var output = _model.Evaluate(i);
-
-                var dist = _distanceCalculator.CalculateDistance(output.Outputs["Oxygen"], _observations["Oxygen"].DepthRelatedObservations["1,0"]);
-
-                concurrentResults.Add((i, dist));
+                if (_constrainer.IsFeasibleForHard(alternatives.Alternatives[i]))
+                {
+                    var inputForModel = _model.ConvertValuesToInput(alternatives.Alternatives[i]);
+                    _model.SetInput(new AquatoxModelInput(inputForModel), i);
+                    var output = _model.Evaluate(i);
+                    var dist = _distanceCalculator.CalculateDistance(output.Outputs["Oxygen"], _observations["Oxygen"].DepthRelatedObservations["1,0"]);
+                    var fitness = 1 / (1 + dist + _constrainer.CalculatePenaltyForSoft(alternatives.Alternatives[i]));
+                    concurrentResults.Add((i, fitness));
+                }
+                else
+                {
+                    concurrentResults.Add((i, 0));
+                }
             });
 
             return new RealObjectiveValues(concurrentResults);

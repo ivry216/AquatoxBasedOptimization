@@ -1,4 +1,6 @@
-﻿namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
+﻿using Optimization.Problem.Constrains;
+
+namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 {
     public class AquatoxParameterToTune
     {
@@ -17,6 +19,34 @@
             HardMinConstrain = hardMin;
             SoftMinConstrain = softMax;
             SoftMaxConstrain = softMax;
+        }
+
+        public HardAndSoftConstrain MakeConstrain(double softConstrainWeight = 0)
+        {
+            var constrain = new HardAndSoftConstrain(HardMaxConstrain, HardMinConstrain, SoftMinConstrain, SoftMaxConstrain, softConstrainWeight);
+
+            return constrain;
+        }
+
+        public (double From, double To) MakeGenerationBoundaries(double defaultMin, double defaultMax)
+        {
+            double max, min;
+
+            if (SoftMaxConstrain.HasValue)
+                max = SoftMaxConstrain.Value;
+            else if (HardMaxConstrain.HasValue)
+                max = HardMaxConstrain.Value;
+            else
+                max = defaultMax;
+
+            if (SoftMinConstrain.HasValue)
+                min = SoftMinConstrain.Value;
+            else if (HardMinConstrain.HasValue)
+                min = HardMinConstrain.Value;
+            else
+                min = defaultMin;
+
+            return (max, min);
         }
     }
 }

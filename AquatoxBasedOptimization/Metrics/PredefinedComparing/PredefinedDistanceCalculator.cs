@@ -53,14 +53,14 @@ namespace AquatoxBasedOptimization.Metrics.PredefinedComparing
 
                     if (secondDateArrayIndex >= startingEarlieDates.Length)
                     {
-                        return 1 / (1 + distance);
+                        return distance;
                     }
                 }
 
                 distance += Math.Abs(startingLaterValues[i] - startingEarlierValues[secondDateArrayIndex]);
             }
 
-            return 1 / (1 + distance);
+            return distance;
         }
     }
 }

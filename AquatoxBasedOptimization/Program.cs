@@ -8,6 +8,7 @@ using AquatoxBasedOptimization.Metrics.PredefinedComparing;
 using Optimization.AlgorithmsControl.AlgorithmRunStatisticsInfrastructure.IterationStatistics;
 using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm;
 using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm.Parallel;
+using Optimization.Problem.Constrains;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,26 @@ namespace AquatoxBasedOptimization
             Dictionary<string, AquatoxParameterToTune> modelVariables = variablesReader.ReadParameters(variablesFileName);
 
             #endregion Variables
+
+            #region Generating
+
+            double defaultMin = -10;
+            double defaultMax = 10;
+
+            List<(double From, double To)> generatingBoundaries = modelVariables.Select(pair => pair.Value.MakeGenerationBoundaries(defaultMin, defaultMax)).ToList();
+
+            #endregion Generating
+
+            #region Constrains
+
+            double softConstrainWight = 1000;
+
+            HardAndSoftConstrain[] constrains = modelVariables.Select(pair => pair.Value.MakeConstrain(softConstrainWight)).ToArray();
+
+            HardAndSoftConstrainerParameters hardAndSoftConstrainerParameters = new HardAndSoftConstrainerParameters(constrains);
+            HardAndSoftConstrainer constrainer = new HardAndSoftConstrainer(hardAndSoftConstrainerParameters);
+
+            #endregion Constrains
 
             #region Model
 
@@ -48,7 +69,7 @@ namespace AquatoxBasedOptimization
             OutputObservationsReaderFromExcel outputObservationsReader = new OutputObservationsReaderFromExcel();
             var observations = outputObservationsReader.ReadOutputVariableObservations();
             
-            AquatoxParametersTuningProblem tuningProblem = new AquatoxParametersTuningProblem(dimension);
+            AquatoxParametersTuningProblem tuningProblem = new AquatoxParametersTuningProblem(dimension, constrainer);
             tuningProblem.SetDistanceCalculator(distanceCalculator);
             tuningProblem.SetObservations(observations);
             tuningProblem.SetModel(model);
