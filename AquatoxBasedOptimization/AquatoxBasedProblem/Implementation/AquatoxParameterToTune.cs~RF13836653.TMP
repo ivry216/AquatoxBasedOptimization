@@ -21,7 +21,7 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
             InitialValue = initialValue;
             HardMaxConstrain = hardMax;
             HardMinConstrain = hardMin;
-            SoftMinConstrain = softMin;
+            SoftMinConstrain = softMax;
             SoftMaxConstrain = softMax;
         }
 

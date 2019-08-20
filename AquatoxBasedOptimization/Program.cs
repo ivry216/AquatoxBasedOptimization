@@ -22,7 +22,7 @@ namespace AquatoxBasedOptimization
         {
             #region Variables
 
-            string variablesFileName = "";
+            string variablesFileName = @"C:/Users/Ivan/Repositiries/AquatoxBasedOptimization/JupyterNotebooks/variables.xlsx"; ;
             AquatoxVariablesFileReader variablesReader = new AquatoxVariablesFileReader();
             Dictionary<string, AquatoxParameterToTune> modelVariables = variablesReader.ReadParameters(variablesFileName);
 
@@ -54,7 +54,7 @@ namespace AquatoxBasedOptimization
             Dictionary<string, int> variablesAndIndices = outputVariablesReader.Read();
             IAquatoxOutputFileProcessor outputFileProcessor = new AquatoxOutputFileProcessor(variablesAndIndices); 
             AquatoxModelParameters modelParameters = new AquatoxModelParameters();
-            modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" }, { "par3", "_param3_" }, { "par4", "_param4_" } };
+            modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" }, { "par3", "_param3_" }, { "par4", "_param4_" }, { "par5", "_param5_" } };
             AquatoxModel model = new AquatoxModel(outputFileProcessor);
             model.SetParameters(modelParameters);
 
