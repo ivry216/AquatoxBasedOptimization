@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquatoxBasedOptimization", "AquatoxBasedOptimization\AquatoxBasedOptimization.csproj", "{0CA880D7-C586-454F-90FE-0AECC5148911}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Optimization", "..\dynamical-system-modeling\Optimization\Optimization.csproj", "{6C6D836E-091F-4266-AA58-3B29FAD95EF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,26 @@ Global
 		{0CA880D7-C586-454F-90FE-0AECC5148911}.Release|x64.Build.0 = Release|Any CPU
 		{0CA880D7-C586-454F-90FE-0AECC5148911}.Release|x86.ActiveCfg = Release|Any CPU
 		{0CA880D7-C586-454F-90FE-0AECC5148911}.Release|x86.Build.0 = Release|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Debug|ARM.Build.0 = Debug|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Debug|x64.Build.0 = Debug|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Debug|x86.Build.0 = Debug|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Release|ARM.Build.0 = Release|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Release|ARM64.Build.0 = Release|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Release|x64.ActiveCfg = Release|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Release|x64.Build.0 = Release|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Release|x86.ActiveCfg = Release|Any CPU
+		{6C6D836E-091F-4266-AA58-3B29FAD95EF8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
