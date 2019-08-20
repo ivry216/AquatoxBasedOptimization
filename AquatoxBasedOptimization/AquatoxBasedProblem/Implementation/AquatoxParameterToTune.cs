@@ -27,14 +27,14 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 
         public HardAndSoftConstrain MakeConstrain(double softConstrainWeight = 0)
         {
-            var constrain = new HardAndSoftConstrain(HardMaxConstrain, HardMinConstrain, SoftMinConstrain, SoftMaxConstrain, softConstrainWeight);
+            var constrain = new HardAndSoftConstrain(HardMinConstrain, HardMaxConstrain, SoftMinConstrain, SoftMaxConstrain, softConstrainWeight);
 
             return constrain;
         }
 
         public (double From, double To) MakeGenerationBoundaries(double defaultMin, double defaultMax)
         {
-            double max, min;
+            double min, max;
 
             if (SoftMaxConstrain.HasValue)
                 max = SoftMaxConstrain.Value;
@@ -50,7 +50,7 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
             else
                 min = defaultMin;
 
-            return (max, min);
+            return (min, max);
         }
     }
 }
