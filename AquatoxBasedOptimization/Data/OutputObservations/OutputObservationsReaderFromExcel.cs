@@ -16,6 +16,9 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
         private readonly string _timeFileColname = "Sampling time";
         private readonly string _depthFileColname = "Sample depth";
         private readonly string _oxygenFileColname = "Dissolved oxygen mg/l";
+        private readonly string _chlorophyllFileColname = "Chlorophyll a µg/l";
+        private readonly string _nitrogenFileColname = "Total nitrogen, unfiltered µg/l";
+        private readonly string _phosphorusFileColname = "Total phosphorous, unfiltered µg/l";
 
         private readonly string _timeDtColname = "Datetime";
         private readonly string _depthDtColname = "Depth";
