@@ -23,6 +23,9 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
         private readonly string _timeDtColname = "Datetime";
         private readonly string _depthDtColname = "Depth";
         private readonly string _oxygenDtColname = "Oxygen";
+        private readonly string _chlorophyllDtColname = "Chlorophyll";
+        private readonly string _nitrogenDtColname = "Nitrogen";
+        private readonly string _phosphorusDtColname = "Phosphorus";
 
         private Dictionary<string, string> variablesNamesPairs;
 
@@ -37,7 +40,7 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
         {
             string trialString;
 
-            Dictionary<string, int?> wordsIndices = new Dictionary<string, int?> { { _timeFileColname, null }, { _depthFileColname, null }, { _oxygenFileColname, null } };
+            Dictionary<string, int?> wordsIndices = new Dictionary<string, int?> { { _timeFileColname, null }, { _depthFileColname, null }, { _oxygenFileColname, null }, { _chlorophyllFileColname, null }, { _nitrogenFileColname, null }, { _phosphorusFileColname, null } };
             List<string> wordsToFind = wordsIndices.Keys.ToList();
 
             bool toDelete = false;
