@@ -9,8 +9,10 @@ using Optimization.AlgorithmsControl.AlgorithmRunStatisticsInfrastructure.Iterat
 using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm;
 using Optimization.EvolutionaryAlgorithms.DifferentialEvolutionAlgorithm.Parallel;
 using Optimization.Problem.Constrains;
+using Optimization.Problem.Parallel.Alternatives;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 
@@ -84,11 +86,14 @@ namespace AquatoxBasedOptimization
             DifferentialEvolutionParameters differentialEvolutionParameters = new DifferentialEvolutionParameters();
             differentialEvolutionParameters.CrossoverProbability = 0.5;
             differentialEvolutionParameters.DifferentialWeight = 1;
-            differentialEvolutionParameters.GenerationParameters.GenerationFrom = Enumerable.Repeat(0.0, dimension).ToArray();
-            differentialEvolutionParameters.GenerationParameters.GenerationTo = Enumerable.Repeat(10.0, dimension).ToArray();
+            //differentialEvolutionParameters.GenerationParameters.GenerationFrom = Enumerable.Repeat(0.0, dimension).ToArray();
+            //differentialEvolutionParameters.GenerationParameters.GenerationTo = Enumerable.Repeat(10.0, dimension).ToArray();
+            differentialEvolutionParameters.GenerationParameters.GenerationFrom = generatingBoundaries.Select(pair => pair.From).ToArray();
+            differentialEvolutionParameters.GenerationParameters.GenerationTo = generatingBoundaries.Select(pair => pair.To).ToArray();
+
             differentialEvolutionParameters.GenerationParameters.GenerationType = Optimization.EvolutionaryAlgorithms.PopulationGenerationType.Uniform;
-            differentialEvolutionParameters.Iterations = 10;
-            differentialEvolutionParameters.Size = 20;
+            differentialEvolutionParameters.Iterations = 1;
+            differentialEvolutionParameters.Size = 5;
 
             ParallelDifferentialEvolution differentialEvolutionParallel = new ParallelDifferentialEvolution();
             differentialEvolutionParallel.SetParameters(differentialEvolutionParameters);
@@ -100,6 +105,10 @@ namespace AquatoxBasedOptimization
             iterationHistoryMaker.SaveToFile();
 
             #endregion Algorithm
+
+            var initialValueBag = tuningProblem.CalculateCriterion(new RealVectorAlternatives(new double[][] { modelVariables.Select(pair => pair.Value.InitialValue).ToArray() }));
+            var initialValueFitness = initialValueBag.Values.ToArray()[0].Value;
+            File.WriteAllText("initial.txt", initialValueFitness.ToString());
 
             Console.WriteLine("End!");
             Console.Read();
