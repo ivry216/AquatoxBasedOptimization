@@ -36,7 +36,7 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
         }
 
 
-        private (int Time, int Depth, int Oxygen) GetColumnIndices(ExcelWorksheet worksheet, int startingRow, int startingCol, int nCols)
+        private (int Time, int Depth, int Oxygen, int Chlorophyll, int Nitrogen, int Phosphorus) GetColumnIndices(ExcelWorksheet worksheet, int startingRow, int startingCol, int nCols)
         {
             string trialString;
 
@@ -73,7 +73,7 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                 throw new Exception($"Could not find {string.Join(", ", wordsIndices.Where(pair => pair.Value == null).Select(pair => pair.Key))}");
             }
 
-            return (wordsIndices[_timeFileColname].Value, wordsIndices[_depthFileColname].Value, wordsIndices[_oxygenFileColname].Value);
+            return (wordsIndices[_timeFileColname].Value, wordsIndices[_depthFileColname].Value, wordsIndices[_oxygenFileColname].Value, wordsIndices[_chlorophyllFileColname].Value, wordsIndices[_nitrogenFileColname].Value, wordsIndices[_phosphorusDtColname].Value);
         }
 
 
@@ -90,13 +90,16 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                 int nRows = worksheet.Dimension.End.Row;
                 int nCols = worksheet.Dimension.End.Column;
 
-                var (timeIndex, depthIndex, oxygenIndex) = GetColumnIndices(worksheet, startingRow: 1, startingCol: 1, nCols: nCols);
+                var (timeIndex, depthIndex, oxygenIndex, chlorophyllIndex, nitrogeneIndex, phosphorusIndex) = GetColumnIndices(worksheet, startingRow: 1, startingCol: 1, nCols: nCols);
 
                 // Get all depths
                 DataTable dataTable = new DataTable();
                 dataTable.Columns.Add(_timeDtColname, typeof(DateTime));
                 dataTable.Columns.Add(_depthDtColname, typeof(string));
                 dataTable.Columns.Add(_oxygenDtColname, typeof(string));
+                dataTable.Columns.Add(_chlorophyllDtColname, typeof(string));
+                dataTable.Columns.Add(_nitrogenDtColname, typeof(string));
+                dataTable.Columns.Add(_phosphorusDtColname, typeof(string));
 
                 for (int i = 2; i < nRows; i++)
                 {
@@ -105,6 +108,12 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                     newRow[_depthDtColname] = worksheet.Cells[i, depthIndex].Value.ToString();
                     newRow[_oxygenDtColname] = worksheet.Cells[i, oxygenIndex].Value == null ? 
                         "" : worksheet.Cells[i, oxygenIndex].Value.ToString();
+                    newRow[_chlorophyllDtColname] = worksheet.Cells[i, chlorophyllIndex].Value == null ?
+                        "" : worksheet.Cells[i, chlorophyllIndex].Value.ToString();
+                    newRow[_nitrogenDtColname] = worksheet.Cells[i, nitrogeneIndex].Value == null ?
+                        "" : worksheet.Cells[i, nitrogeneIndex].Value.ToString();
+                    newRow[_phosphorusDtColname] = worksheet.Cells[i, phosphorusIndex].Value == null ?
+                        "" : worksheet.Cells[i, phosphorusIndex].Value.ToString();
                     dataTable.Rows.Add(newRow);
                 }
 
