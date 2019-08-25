@@ -49,9 +49,12 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
                 {
                     var inputForModel = _model.ConvertValuesToInput(alternatives.Alternatives[i]);
                     _model.SetInput(new AquatoxModelInput(inputForModel), i);
-                    var output = _model.Evaluate(i);
-                    var dist = _distanceCalculator.CalculateDistance(output.Outputs["Oxygen"], _observations["Oxygen"].DepthRelatedObservations["1,0"]);
-                    var fitness = 1 / (1 + dist + _constrainer.CalculatePenaltyForSoft(alternatives.Alternatives[i]));
+                    AquatoxModelOutput output = _model.Evaluate(i);
+                    var distOxygen = _distanceCalculator.CalculateDistance(output.Outputs["Oxygen"], _observations["Oxygen"].DepthRelatedObservations["1,0"]);
+                    var distChlorophyll = _distanceCalculator.CalculateDistance(output.Outputs["Phyto. Chlorophyll"], _observations["Chlorophyll"].DepthRelatedObservations["1,0"]);
+                    var distNitrogene = _distanceCalculator.CalculateDistance(output.Outputs["TN"], _observations["Nitrogene"].DepthRelatedObservations["1,0"]);
+                    var distPhosphorus = _distanceCalculator.CalculateDistance(output.Outputs["TP"], _observations["Phosphorus"].DepthRelatedObservations["1,0"]);
+                    var fitness = 1 / (1 + distOxygen + _constrainer.CalculatePenaltyForSoft(alternatives.Alternatives[i]));
                     concurrentResults.Add((i, fitness));
                 }
                 else
