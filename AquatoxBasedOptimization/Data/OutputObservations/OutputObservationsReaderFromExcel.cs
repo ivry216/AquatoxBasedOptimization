@@ -73,7 +73,7 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                 throw new Exception($"Could not find {string.Join(", ", wordsIndices.Where(pair => pair.Value == null).Select(pair => pair.Key))}");
             }
 
-            return (wordsIndices[_timeFileColname].Value, wordsIndices[_depthFileColname].Value, wordsIndices[_oxygenFileColname].Value, wordsIndices[_chlorophyllFileColname].Value, wordsIndices[_nitrogenFileColname].Value, wordsIndices[_phosphorusDtColname].Value);
+            return (wordsIndices[_timeFileColname].Value, wordsIndices[_depthFileColname].Value, wordsIndices[_oxygenFileColname].Value, wordsIndices[_chlorophyllFileColname].Value, wordsIndices[_nitrogenFileColname].Value, wordsIndices[_phosphorusFileColname].Value);
         }
 
 
