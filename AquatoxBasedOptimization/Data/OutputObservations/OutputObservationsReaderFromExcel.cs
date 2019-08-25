@@ -124,31 +124,46 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                     .Distinct()
                     .ToList();
 
-                // Dictionary with observations for each particular depth
-                var depthRelatedTimeseries = new Dictionary<string, ITimeSeries>();
-                // Make an output for each depth
-                foreach (var depth in distinctDepths)
-                {
-                    // Get the data for ts
-                    List<(DateTime Timestamp, double Value)> timeseriesData = dataTable
-                        .AsEnumerable()
-                        .Select(row => (Depth: row.Field<string>(_depthDtColname), Timestamp: row.Field<DateTime>(_timeDtColname), Value: row.Field<string>(_oxygenDtColname)))
-                        .Where(triple => triple.Depth.Equals(depth))
-                        .Where(triple => !triple.Value.Equals(""))
-                        .Select(triple => (triple.Timestamp, double.Parse(triple.Value)))
-                        .ToList();
-
-                    // Perform ts
-                    TimeSeries timeseries = new TimeSeries(name: $"Oxygen, depth: {depth}", values: timeseriesData.Select(pair => pair.Value).ToArray(), times: timeseriesData.Select(pair => pair.Timestamp).ToArray());
-                    // Add the ts to dictionary for this depth
-                    depthRelatedTimeseries.Add(depth, timeseries);
-                }
-
-                var observation = new OutputObservation("Oxygen", depthRelatedTimeseries);
-                observations.Add("Oxygen", observation);
+                // TODO: loop that
+                var oxygenData = GetDepthRelatedOutputObservation(dataTable, distinctDepths, _oxygenDtColname);
+                observations.Add("Oxygen", oxygenData);
+                var chlorophyllData = GetDepthRelatedOutputObservation(dataTable, distinctDepths, _chlorophyllDtColname);
+                observations.Add("Chlorophyll", chlorophyllData);
+                var nitrogeneData = GetDepthRelatedOutputObservation(dataTable, distinctDepths, _nitrogenDtColname);
+                observations.Add("Nitrogene", nitrogeneData);
+                var phosphorusData = GetDepthRelatedOutputObservation(dataTable, distinctDepths, _phosphorusDtColname);
+                observations.Add("Phosphorus", phosphorusData);
             }
 
             return observations;
+        }
+
+        private OutputObservation GetDepthRelatedOutputObservation(DataTable originalDataTable, List<string> distinctDepths, string dtColname)
+        {
+            // Dictionary with observations for each particular depth
+            var depthRelatedTimeseries = new Dictionary<string, ITimeSeries>();
+
+            // Make an output for each depth
+            foreach (var depth in distinctDepths)
+            {
+                // Get the data for ts
+                List<(DateTime Timestamp, double Value)> timeseriesData = originalDataTable
+                    .AsEnumerable()
+                    .Select(row => (Depth: row.Field<string>(_depthDtColname), Timestamp: row.Field<DateTime>(_timeDtColname), Value: row.Field<string>(dtColname)))
+                    .Where(triple => triple.Depth.Equals(depth))
+                    .Where(triple => !triple.Value.Equals(""))
+                    .Select(triple => (triple.Timestamp, double.Parse(triple.Value)))
+                    .ToList();
+
+                // Perform ts
+                TimeSeries timeseries = new TimeSeries(name: $"{dtColname}, depth: {depth}", values: timeseriesData.Select(pair => pair.Value).ToArray(), times: timeseriesData.Select(pair => pair.Timestamp).ToArray());
+                // Add the ts to dictionary for this depth
+                depthRelatedTimeseries.Add(depth, timeseries);
+            }
+
+            var observation = new OutputObservation("Oxygen", depthRelatedTimeseries);
+
+            return observation;
         }
     }
 }
