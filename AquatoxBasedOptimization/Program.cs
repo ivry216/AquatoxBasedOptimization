@@ -92,8 +92,8 @@ namespace AquatoxBasedOptimization
             differentialEvolutionParameters.GenerationParameters.GenerationTo = generatingBoundaries.Select(pair => pair.To).ToArray();
 
             differentialEvolutionParameters.GenerationParameters.GenerationType = Optimization.EvolutionaryAlgorithms.PopulationGenerationType.Uniform;
-            differentialEvolutionParameters.Iterations = 1;
-            differentialEvolutionParameters.Size = 5;
+            differentialEvolutionParameters.Iterations = 20;
+            differentialEvolutionParameters.Size = 20;
 
             ParallelDifferentialEvolution differentialEvolutionParallel = new ParallelDifferentialEvolution();
             differentialEvolutionParallel.SetParameters(differentialEvolutionParameters);

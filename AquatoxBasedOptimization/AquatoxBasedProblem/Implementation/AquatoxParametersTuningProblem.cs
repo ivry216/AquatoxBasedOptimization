@@ -6,6 +6,7 @@ using Optimization.Problem.Constrains.Parallel;
 using Optimization.Problem.Parallel.Alternatives;
 using Optimization.Problem.Parallel.Constrained;
 using Optimization.Problem.Parallel.Values;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
 {
     public class AquatoxParametersTuningProblem : ParallelOptimizationConstrainedProblem<RealObjectiveValues, RealVectorAlternatives>
     {
+        private static int iteration = 1;
+
         private AquatoxModel _model;
         private PredefinedDistanceCalculator _distanceCalculator;
         private Dictionary<string, IOutputObservation> _observations;
@@ -56,6 +59,9 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
         public override RealObjectiveValues CalculateCriterion(RealVectorAlternatives alternatives)
         {
             ConcurrentBag<(int Index, double Value)> concurrentResults = new ConcurrentBag<(int Index, double Value)>();
+
+            Console.Write($"Another iteration! {iteration}");
+            iteration++;
 
             Parallel.For(0, alternatives.Alternatives.Length, (i) =>
             {
