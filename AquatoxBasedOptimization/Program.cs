@@ -56,7 +56,8 @@ namespace AquatoxBasedOptimization
             Dictionary<string, int> variablesAndIndices = outputVariablesReader.Read();
             IAquatoxOutputFileProcessor outputFileProcessor = new AquatoxOutputFileProcessor(variablesAndIndices); 
             AquatoxModelParameters modelParameters = new AquatoxModelParameters();
-            modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" }, { "par3", "_param3_" }, { "par4", "_param4_" }, { "par5", "_param5_" } };
+            //modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" }, { "par3", "_param3_" }, { "par4", "_param4_" }, { "par5", "_param5_" } };
+            modelParameters.InputParameters = Enumerable.Range(1, 20).ToDictionary(i => $"par{i}", i => $"_param{i}_");
             AquatoxModel model = new AquatoxModel(outputFileProcessor);
             model.SetParameters(modelParameters);
 
