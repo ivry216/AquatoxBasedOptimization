@@ -18,8 +18,9 @@ namespace AquatoxBasedOptimization.Data.Variable
         private static string _colSoftMin = "Soft Min";
         private static string _colSoftMax = "Soft Max";
         private static string _colHardMax = "Hard Max";
+        private static string _colIsToBeTuned = "Tune";
 
-        private readonly List<string> _colnames = new List<string>() { _colName, _colInnerName, _colInnerVarName, _colInitialVal, _colHardMin, _colSoftMin, _colSoftMax, _colHardMax };
+        private readonly List<string> _colnames = new List<string>() { _colName, _colInnerName, _colInnerVarName, _colInitialVal, _colHardMin, _colSoftMin, _colSoftMax, _colHardMax, _colIsToBeTuned };
 
         private Dictionary<string, int> GetColumnIndices(ExcelWorksheet worksheet, int startingRow, int startingCol, int nCols)
         {
@@ -76,7 +77,9 @@ namespace AquatoxBasedOptimization.Data.Variable
                 
                 for (int i = 2; i <= nRows; i++)
                 {
-                    AquatoxParameterToTune currentParameter = new AquatoxParameterToTune(
+                    if (worksheet.Cells[i, indices[_colIsToBeTuned]].Value.ToString() == "yes")
+                    {
+                        AquatoxParameterToTune currentParameter = new AquatoxParameterToTune(
                         name: worksheet.Cells[i, indices[_colName]].Value.ToString(),
                         aquatoxName: worksheet.Cells[i, indices[_colInnerName]].Value.ToString(),
                         aquatoxVarName: worksheet.Cells[i, indices[_colInnerVarName]].Value.ToString(),
@@ -85,7 +88,8 @@ namespace AquatoxBasedOptimization.Data.Variable
                         hardMin: GetNulalbleDouble(worksheet.Cells[i, indices[_colHardMin]].Value),
                         softMax: GetNulalbleDouble(worksheet.Cells[i, indices[_colSoftMax]].Value),
                         softMin: GetNulalbleDouble(worksheet.Cells[i, indices[_colSoftMin]].Value));
-                    foundParameters.Add(currentParameter);
+                        foundParameters.Add(currentParameter);
+                    }
                 }
             }
 
