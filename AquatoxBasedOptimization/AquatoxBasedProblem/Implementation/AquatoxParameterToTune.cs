@@ -32,7 +32,7 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
             return constrain;
         }
 
-        public (double From, double To) MakeGenerationBoundaries(double defaultMin, double defaultMax)
+        public (double From, double To) MakeGenerationBoundaries(double defaultMinDelta, double defaultMaxDelta)
         {
             double min, max;
 
@@ -41,14 +41,14 @@ namespace AquatoxBasedOptimization.AquatoxBasedProblem.Implementation
             else if (HardMaxConstrain.HasValue)
                 max = HardMaxConstrain.Value;
             else
-                max = defaultMax;
+                max = InitialValue + defaultMaxDelta;
 
             if (SoftMinConstrain.HasValue)
                 min = SoftMinConstrain.Value;
             else if (HardMinConstrain.HasValue)
                 min = HardMinConstrain.Value;
             else
-                min = defaultMin;
+                min = InitialValue - defaultMinDelta;
 
             return (min, max);
         }
