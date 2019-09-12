@@ -75,7 +75,7 @@ namespace AquatoxBasedOptimization.Data.Variable
 
                 var indices = GetColumnIndices(worksheet, startingRow: 1, startingCol: 1, nCols: nCols);
                 
-                for (int i = 2; i < nRows; i++)
+                for (int i = 2; i <= nRows; i++)
                 {
                     try
                     {
