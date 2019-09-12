@@ -75,20 +75,27 @@ namespace AquatoxBasedOptimization.Data.Variable
 
                 var indices = GetColumnIndices(worksheet, startingRow: 1, startingCol: 1, nCols: nCols);
                 
-                for (int i = 2; i <= nRows; i++)
+                for (int i = 2; i < nRows; i++)
                 {
-                    if (worksheet.Cells[i, indices[_colIsToBeTuned]].Value.ToString() == "yes")
+                    try
                     {
-                        AquatoxParameterToTune currentParameter = new AquatoxParameterToTune(
-                        name: worksheet.Cells[i, indices[_colName]].Value.ToString(),
-                        aquatoxName: worksheet.Cells[i, indices[_colInnerName]].Value.ToString(),
-                        aquatoxVarName: worksheet.Cells[i, indices[_colInnerVarName]].Value.ToString(),
-                        initialValue: double.Parse(worksheet.Cells[i, indices[_colInitialVal]].Value.ToString()),
-                        hardMax: GetNulalbleDouble(worksheet.Cells[i, indices[_colHardMax]].Value),
-                        hardMin: GetNulalbleDouble(worksheet.Cells[i, indices[_colHardMin]].Value),
-                        softMax: GetNulalbleDouble(worksheet.Cells[i, indices[_colSoftMax]].Value),
-                        softMin: GetNulalbleDouble(worksheet.Cells[i, indices[_colSoftMin]].Value));
-                        foundParameters.Add(currentParameter);
+                        if (worksheet.Cells[i, indices[_colIsToBeTuned]].Value.ToString() == "yes")
+                        {
+                            AquatoxParameterToTune currentParameter = new AquatoxParameterToTune(
+                            name: worksheet.Cells[i, indices[_colName]].Value.ToString(),
+                            aquatoxName: worksheet.Cells[i, indices[_colInnerName]].Value.ToString(),
+                            aquatoxVarName: worksheet.Cells[i, indices[_colInnerVarName]].Value.ToString(),
+                            initialValue: double.Parse(worksheet.Cells[i, indices[_colInitialVal]].Value.ToString()),
+                            hardMax: GetNulalbleDouble(worksheet.Cells[i, indices[_colHardMax]].Value),
+                            hardMin: GetNulalbleDouble(worksheet.Cells[i, indices[_colHardMin]].Value),
+                            softMax: GetNulalbleDouble(worksheet.Cells[i, indices[_colSoftMax]].Value),
+                            softMin: GetNulalbleDouble(worksheet.Cells[i, indices[_colSoftMin]].Value));
+                            foundParameters.Add(currentParameter);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        break;
                     }
                 }
             }
