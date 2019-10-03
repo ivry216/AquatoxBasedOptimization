@@ -129,16 +129,16 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                 observations.Add("Oxygen", oxygenData);
                 var chlorophyllData = GetDepthRelatedOutputObservation(dataTable, distinctDepths, _chlorophyllDtColname);
                 observations.Add("Chlorophyll", chlorophyllData);
-                var nitrogeneData = GetDepthRelatedOutputObservation(dataTable, distinctDepths, _nitrogenDtColname);
+                var nitrogeneData = GetDepthRelatedOutputObservation(dataTable, distinctDepths, _nitrogenDtColname, true);
                 observations.Add("Nitrogene", nitrogeneData);
-                var phosphorusData = GetDepthRelatedOutputObservation(dataTable, distinctDepths, _phosphorusDtColname);
+                var phosphorusData = GetDepthRelatedOutputObservation(dataTable, distinctDepths, _phosphorusDtColname, true);
                 observations.Add("Phosphorus", phosphorusData);
             }
 
             return observations;
         }
 
-        private OutputObservation GetDepthRelatedOutputObservation(DataTable originalDataTable, List<string> distinctDepths, string dtColname)
+        private OutputObservation GetDepthRelatedOutputObservation(DataTable originalDataTable, List<string> distinctDepths, string dtColname, bool normalize = false)
         {
             // Dictionary with observations for each particular depth
             var depthRelatedTimeseries = new Dictionary<string, ITimeSeries>();
@@ -152,7 +152,7 @@ namespace AquatoxBasedOptimization.Data.OutputObservations
                     .Select(row => (Depth: row.Field<string>(_depthDtColname), Timestamp: row.Field<DateTime>(_timeDtColname), Value: row.Field<string>(dtColname)))
                     .Where(triple => triple.Depth.Equals(depth))
                     .Where(triple => !triple.Value.Equals(""))
-                    .Select(triple => (triple.Timestamp, double.Parse(triple.Value)))
+                    .Select(triple => (triple.Timestamp, normalize ? double.Parse(triple.Value)/1000 : double.Parse(triple.Value)))
                     .ToList();
 
                 // Perform ts
