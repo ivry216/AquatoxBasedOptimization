@@ -136,7 +136,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\dynamical-system-modeling\Optimization\Optimization.csproj">
+    <ProjectReference Include="..\..\..\Repositories\Optimization\Optimization.csproj">
       <Project>{6c6d836e-091f-4266-aa58-3b29fad95ef8}</Project>
       <Name>Optimization</Name>
     </ProjectReference>
