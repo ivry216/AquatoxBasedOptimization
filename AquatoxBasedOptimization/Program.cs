@@ -23,8 +23,9 @@ namespace AquatoxBasedOptimization
         static void Main(string[] args)
         {
             #region Variables
-            string variablesFileName = @"C:/Users/ivanry/Documents/Reps/aquaox_modeling/JupyterNotebooks/variables_20.xlsx";
+
             //string variablesFileName = @"C:/Users/Ivan/Repositiries/AquatoxBasedOptimization/JupyterNotebooks/variables.xlsx";
+            string variablesFileName = @"C:/Users/ivanry/Documents/AquatoxBasedOptimization/JupyterNotebooks/variables_20.xlsx";
             AquatoxVariablesFileReader variablesReader = new AquatoxVariablesFileReader();
             Dictionary<string, AquatoxParameterToTune> modelVariables = variablesReader.ReadParameters(variablesFileName);
 
@@ -32,10 +33,10 @@ namespace AquatoxBasedOptimization
 
             #region Generating
 
-            double defaultMin = 10;
-            double defaultMax = 10;
+            double defaultMinDelta = 10;
+            double defaultMaxDelta = 10;
 
-            List<(double From, double To)> generatingBoundaries = modelVariables.Select(pair => pair.Value.MakeGenerationBoundaries(defaultMin, defaultMax)).ToList();
+            List<(double From, double To)> generatingBoundaries = modelVariables.Select(pair => pair.Value.MakeGenerationBoundaries(defaultMinDelta, defaultMaxDelta)).ToList();
 
             #endregion Generating
 
@@ -85,16 +86,16 @@ namespace AquatoxBasedOptimization
             IterationValuesHistoryMaker iterationHistoryMaker = new IterationValuesHistoryMaker();
 
             DifferentialEvolutionParameters differentialEvolutionParameters = new DifferentialEvolutionParameters();
-            differentialEvolutionParameters.CrossoverProbability = 0.2;
-            differentialEvolutionParameters.DifferentialWeight = 0.8;
+            differentialEvolutionParameters.CrossoverProbability = 0.5;
+            differentialEvolutionParameters.DifferentialWeight = 1;
             //differentialEvolutionParameters.GenerationParameters.GenerationFrom = Enumerable.Repeat(0.0, dimension).ToArray();
             //differentialEvolutionParameters.GenerationParameters.GenerationTo = Enumerable.Repeat(10.0, dimension).ToArray();
             differentialEvolutionParameters.GenerationParameters.GenerationFrom = generatingBoundaries.Select(pair => pair.From).ToArray();
             differentialEvolutionParameters.GenerationParameters.GenerationTo = generatingBoundaries.Select(pair => pair.To).ToArray();
 
             differentialEvolutionParameters.GenerationParameters.GenerationType = Optimization.EvolutionaryAlgorithms.PopulationGenerationType.Uniform;
-            differentialEvolutionParameters.Iterations = 40;
-            differentialEvolutionParameters.Size = 100;
+            differentialEvolutionParameters.Iterations = 20;
+            differentialEvolutionParameters.Size = 20;
 
             ParallelDifferentialEvolution differentialEvolutionParallel = new ParallelDifferentialEvolution();
             differentialEvolutionParallel.SetParameters(differentialEvolutionParameters);
