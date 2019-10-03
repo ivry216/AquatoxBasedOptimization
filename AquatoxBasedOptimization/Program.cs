@@ -23,8 +23,8 @@ namespace AquatoxBasedOptimization
         static void Main(string[] args)
         {
             #region Variables
-
-            string variablesFileName = @"C:/Users/Ivan/Repositiries/AquatoxBasedOptimization/JupyterNotebooks/variables.xlsx"; ;
+            string variablesFileName = @"C:/Users/ivanry/Documents/Reps/aquaox_modeling/JupyterNotebooks/variables_20.xlsx";
+            //string variablesFileName = @"C:/Users/Ivan/Repositiries/AquatoxBasedOptimization/JupyterNotebooks/variables.xlsx";
             AquatoxVariablesFileReader variablesReader = new AquatoxVariablesFileReader();
             Dictionary<string, AquatoxParameterToTune> modelVariables = variablesReader.ReadParameters(variablesFileName);
 
@@ -32,7 +32,7 @@ namespace AquatoxBasedOptimization
 
             #region Generating
 
-            double defaultMin = -10;
+            double defaultMin = 10;
             double defaultMax = 10;
 
             List<(double From, double To)> generatingBoundaries = modelVariables.Select(pair => pair.Value.MakeGenerationBoundaries(defaultMin, defaultMax)).ToList();
@@ -57,7 +57,7 @@ namespace AquatoxBasedOptimization
             IAquatoxOutputFileProcessor outputFileProcessor = new AquatoxOutputFileProcessor(variablesAndIndices); 
             AquatoxModelParameters modelParameters = new AquatoxModelParameters();
             //modelParameters.InputParameters = new Dictionary<string, string>() { { "par1", "_param1_" }, { "par2", "_param2_" }, { "par3", "_param3_" }, { "par4", "_param4_" }, { "par5", "_param5_" } };
-            modelParameters.InputParameters = Enumerable.Range(1, 20).ToDictionary(i => $"par{i}", i => $"_param{i}_");
+            modelParameters.InputParameters = Enumerable.Range(1, modelVariables.Count).ToDictionary(i => $"par{i}", i => $"_param{i}_");
             AquatoxModel model = new AquatoxModel(outputFileProcessor);
             model.SetParameters(modelParameters);
 
@@ -85,16 +85,16 @@ namespace AquatoxBasedOptimization
             IterationValuesHistoryMaker iterationHistoryMaker = new IterationValuesHistoryMaker();
 
             DifferentialEvolutionParameters differentialEvolutionParameters = new DifferentialEvolutionParameters();
-            differentialEvolutionParameters.CrossoverProbability = 0.5;
-            differentialEvolutionParameters.DifferentialWeight = 1;
+            differentialEvolutionParameters.CrossoverProbability = 0.2;
+            differentialEvolutionParameters.DifferentialWeight = 0.8;
             //differentialEvolutionParameters.GenerationParameters.GenerationFrom = Enumerable.Repeat(0.0, dimension).ToArray();
             //differentialEvolutionParameters.GenerationParameters.GenerationTo = Enumerable.Repeat(10.0, dimension).ToArray();
             differentialEvolutionParameters.GenerationParameters.GenerationFrom = generatingBoundaries.Select(pair => pair.From).ToArray();
             differentialEvolutionParameters.GenerationParameters.GenerationTo = generatingBoundaries.Select(pair => pair.To).ToArray();
 
             differentialEvolutionParameters.GenerationParameters.GenerationType = Optimization.EvolutionaryAlgorithms.PopulationGenerationType.Uniform;
-            differentialEvolutionParameters.Iterations = 20;
-            differentialEvolutionParameters.Size = 20;
+            differentialEvolutionParameters.Iterations = 40;
+            differentialEvolutionParameters.Size = 100;
 
             ParallelDifferentialEvolution differentialEvolutionParallel = new ParallelDifferentialEvolution();
             differentialEvolutionParallel.SetParameters(differentialEvolutionParameters);
@@ -107,7 +107,7 @@ namespace AquatoxBasedOptimization
 
             #endregion Algorithm
 
-            var initialValueBag = tuningProblem.CalculateCriterion(new RealVectorAlternatives(new double[][] { modelVariables.Select(pair => pair.Value.InitialValue).ToArray() }));
+            var initialValueBag = tuningProblem.CalculateCriterion(new RealVectorAlternatives(new double[][] { modelVariables.Select(pair => pair.Value.InitialValue).ToArray(), differentialEvolutionParallel.BestSolution }));
             var initialValueFitness = initialValueBag.Values.ToArray()[0].Value;
             File.WriteAllText("initial.txt", initialValueFitness.ToString());
 
